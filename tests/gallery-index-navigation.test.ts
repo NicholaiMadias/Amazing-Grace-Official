@@ -3,7 +3,7 @@ import fs from "node:fs";
 
 describe("Gallery index navigation and asset paths", () => {
   it("uses root gallery and asset paths without /public prefixes", () => {
-    expect(fs.existsSync("galleries/index.html")).toBe(true);
+    expect(fs.existsSync("galleries/index.html"), "Expected galleries/index.html to exist in source tree").toBe(true);
     const html = fs.readFileSync("galleries/index.html", "utf8");
 
     expect(html).not.toContain("/public/assets/galleries/");
