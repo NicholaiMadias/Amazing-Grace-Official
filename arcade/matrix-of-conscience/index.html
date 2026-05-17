@@ -123,6 +123,10 @@
             updateHUD();
         }
 
+        function createsImmediateMatch(r, c, row, type) {
+            return (c >= 2 && type === row[c-1] && type === row[c-2]) || (r >= 2 && type === board[r-1][c] && type === board[r-2][c]);
+        }
+
         function createBoard() {
             const gridContainer = document.getElementById('matrix-grid');
             gridContainer.innerHTML = '';
@@ -136,10 +140,16 @@
                     do {
                         type = Math.floor(Math.random() * 7) + 1;
                         attempts++;
-                    } while (
-                        attempts < 20 &&
-                        ((c >= 2 && type === row[c-1] && type === row[c-2]) || (r >= 2 && type === board[r-1][c] && type === board[r-2][c]))
-                    );
+                    } while (attempts < 20 && createsImmediateMatch(r, c, row, type));
+
+                    if (createsImmediateMatch(r, c, row, type)) {
+                        for (let fallback = 1; fallback <= 7; fallback++) {
+                            if (!createsImmediateMatch(r, c, row, fallback)) {
+                                type = fallback;
+                                break;
+                            }
+                        }
+                    }
                     
                     row.push(type);
                     
@@ -260,17 +270,17 @@
                 return;
             }
 
-            let uniquePoints = 0;
+            let earnedPoints = 0;
             matches.forEach(m => {
                 if (board[m.r][m.c] !== 0) {
                     board[m.r][m.c] = 0;
-                    uniquePoints += 10;
+                    earnedPoints += 10;
                     const el = document.getElementById(`tile-${m.r}-${m.c}`);
                     if (el) el.innerHTML = '';
                 }
             });
 
-            score += uniquePoints;
+            score += earnedPoints;
             updateHUD();
 
             setTimeout(() => {
