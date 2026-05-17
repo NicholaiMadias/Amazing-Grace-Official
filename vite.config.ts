@@ -11,6 +11,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main:              resolve(__dirname, "index.html"),
+        contact:           resolve(__dirname, "contact/index.html"),
         matrix:            resolve(__dirname, "matrix.html"),
         arcade:            resolve(__dirname, "arcade/index.html"),
         arcadeStarMatrix:   resolve(__dirname, "arcade/star-matrix/index.html"),
@@ -31,8 +32,7 @@ export default defineConfig({
         storiesMatrix:      resolve(__dirname, "stories/matrix.html"),
         storiesNoahAndTheArk: resolve(__dirname, "stories/noah-and-the-ark/index.html"),
         storiesOurCovenant: resolve(__dirname, "stories/our-covenant-of-new-beginnings/index.html"),
-        storiesBook1:      resolve(__dirname, "stories/books/storybook-1.html"),
-        storiesBook2:      resolve(__dirname, "stories/books/storybook-2.html"),
+        storiesLampInWindow: resolve(__dirname, "stories/books/the-lamp-in-the-window.html"),
         storiesElla:       resolve(__dirname, "stories/characters/ella.html"),
         matrixApp:         resolve(__dirname, "arcade/matrix-app/index.html"),
         news:              resolve(__dirname, "news/index.html"),

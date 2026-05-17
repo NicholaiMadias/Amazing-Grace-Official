@@ -11,11 +11,13 @@
     <link rel="icon" type="image/png" href="./assets/logo.png">
     <link rel="manifest" href="./manifest.json">
     <title>Amazing Grace Home Living</title>
+    <script src="./assets/vendor/hosted-only.js"></script>
+    <script>
+        window.AmazingGraceHostedOnly?.loadStylesheet("https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;700&display=swap");
+        window.AmazingGraceHostedOnly?.loadStylesheet("https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap");
+    </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
@@ -100,18 +102,17 @@
             border-radius: 6px;
         }
 
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-name {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--accent);
-            line-height: 1.1;
-        }
+	        .brand-text {
+	            display: flex;
+	            flex-direction: column;
+	        }
+	        .brand-name {
+	            font-family: 'Orbitron', sans-serif;
+	            font-weight: 700;
+	            font-size: 0.95rem;
+	            color: var(--accent);
+	            line-height: 1.1;
+	        }
 
         .brand-sub {
             font-size: 0.7rem;
