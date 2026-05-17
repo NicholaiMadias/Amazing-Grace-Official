@@ -916,6 +916,11 @@
             lobby.style.display = '';
         }
 
+        const requestedGame = new URLSearchParams(window.location.search).get('game');
+        if (requestedGame === 'sevenstars' || requestedGame === 'matchmaker') {
+            launchGame(requestedGame);
+        }
+
         // ── Match Maker completion certificate ─────────────────────────
         document.addEventListener('matchmakerComplete', (e) => {
             const scoreVal = e.detail?.score ?? 0;

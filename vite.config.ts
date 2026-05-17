@@ -45,6 +45,7 @@ export default defineConfig({
         galleryTampaArchive: resolve(__dirname, "galleries/tampa-property/index.html"),
         galleryMinistry:   resolve(__dirname, "galleries/ministry/index.html"),
         galleryMinistryOutreach: resolve(__dirname, "galleries/ministry-outreach/index.html"),
+        contact:           resolve(__dirname, "contact.html"),
         privacy:           resolve(__dirname, "privacy.html"),
         arcadeRedirect:    resolve(__dirname, "arcade.html"),
       }

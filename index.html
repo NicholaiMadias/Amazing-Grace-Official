@@ -752,7 +752,7 @@
 
         <section class="hero">
             <p class="hero-eyebrow">amazinggracehl.org</p>
-            <h2>Welcome to Amazing Grace</h2>
+            <h1>Welcome to Amazing Grace</h1>
             <p class="hero-tagline">
                 A home, a ministry, and a digital universe — all built on compassion, creativity, and purpose.
             </p>
@@ -762,6 +762,7 @@
             </div>
         </section>
 
+        <span id="properties" aria-hidden="true"></span>
         <section class="section" id="listings" aria-labelledby="listings-heading">
             <div class="section-inner">
                 <div class="section-header">
@@ -773,7 +774,7 @@
                     <div class="listing-card">
                         <div class="listing-thumb-wrap">
                             <img src="./assets/images/property-1142.svg" alt="1142 7th St NW, Largo — property illustration" class="listing-card-thumb" loading="lazy" decoding="async">
-                            <div class="listing-price-badge">$1,000/mo</div>
+                            <div class="listing-price-badge">$900/mo</div>
                             <div class="listing-badge-avail">Available</div>
                         </div>
                         <h3>1142 7th St NW, Largo</h3>
@@ -923,6 +924,7 @@
             </div>
         </section>
 
+        <span id="contact" aria-hidden="true"></span>
         <section class="section" id="apply" aria-labelledby="apply-heading">
             <div class="section-inner">
                 <div class="section-header">
@@ -944,7 +946,7 @@
                         <a href="./support/" class="btn-secondary">Support Our Mission</a>
                     </div>
 
-                    <form class="apply-form" action="./contact/" method="GET" aria-label="Housing application inquiry">
+                    <form class="apply-form" action="./contact.html" method="POST" aria-label="Housing application inquiry">
                         <div class="form-group">
                             <label for="apply-name">Full Name</label>
                             <input type="text" id="apply-name" name="name" placeholder="Your full name" required autocomplete="name">
@@ -972,6 +974,7 @@
                             <textarea id="apply-message" name="message" placeholder="Share any details that may help us assist you…"></textarea>
                         </div>
                         <button type="submit" class="btn-primary">Send Inquiry</button>
+                        <p id="apply-form-status" role="status" aria-live="polite"></p>
                     </form>
                 </div>
             </div>
@@ -1024,7 +1027,41 @@
                 if (event.key === 'Escape' && nav.classList.contains('open')) closeMainNav();
             });
         }
+
+        const applyForm = document.querySelector('.apply-form');
+        const applyStatus = document.getElementById('apply-form-status');
+
+        if (applyForm && applyStatus) {
+            applyForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                applyStatus.textContent = 'Sending…';
+
+                const formData = new FormData(applyForm);
+                const payload = {
+                    name: String(formData.get('name') || '').trim(),
+                    phone: String(formData.get('phone') || '').trim(),
+                    email: String(formData.get('email') || '').trim(),
+                    property: String(formData.get('property') || '').trim(),
+                    message: String(formData.get('message') || '').trim()
+                };
+
+                try {
+                    const response = await fetch('./api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error('Request failed');
+                    applyStatus.textContent = '✅ Inquiry sent. We will contact you shortly.';
+                    applyForm.reset();
+                } catch {
+                    applyStatus.textContent = 'Unable to submit online. Please call or text (727) 420-2873 or email admin@amazinggracehl.org.';
+                }
+            });
+        }
     </script>
+    <div id="constellation-nav"></div>
     <script type="module" src="./constellation-nav.js"></script>
     <script src="./sw-register.js" defer></script>
 </body>
