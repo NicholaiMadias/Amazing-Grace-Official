@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
-import fs from "node:fs";
+import viteConfig from "../vite.config";
 
 describe("Gallery routes in Vite multi-page build inputs", () => {
   it("includes all gallery index pages in rollupOptions.input", () => {
-    const viteConfig = fs.readFileSync("vite.config.ts", "utf8");
+    const input = viteConfig.build?.rollupOptions?.input;
+    expect(input).toBeTruthy();
+    expect(typeof input).toBe("object");
 
     const expectedGalleryInputs = [
       "galleries/index.html",
@@ -15,8 +17,10 @@ describe("Gallery routes in Vite multi-page build inputs", () => {
       "galleries/ministry-outreach/index.html",
     ];
 
+    const inputValues = Object.values(input as Record<string, string>).map(String);
+
     for (const galleryInput of expectedGalleryInputs) {
-      expect(viteConfig).toContain(galleryInput);
+      expect(inputValues.some((value) => value.endsWith(galleryInput))).toBe(true);
     }
   });
 });
