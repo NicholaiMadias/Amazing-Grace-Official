@@ -32,7 +32,8 @@ describe('story and arcade cleanup', () => {
     expect(matrixApp).toContain('../../stories/books/the-lamp-in-the-window.html');
     expect(matrixApp).toContain('../../stories/expose-the-matrix/');
     expect(lampStory).not.toContain('storybook-2');
-    expect(lampStory).toContain('../noah-and-the-ark/');
+    expect(lampStory).not.toContain('Next: Noah and the Ark');
+    expect(lampStory).not.toContain('class="book-nav"');
     expect(exposeStory).not.toContain('storybook-2');
     expect(viteConfig).toContain('stories/noah-and-the-ark/index.html');
   });
