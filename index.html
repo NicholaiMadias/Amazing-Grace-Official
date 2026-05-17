@@ -946,7 +946,7 @@
                         <a href="./support/" class="btn-secondary">Support Our Mission</a>
                     </div>
 
-                    <form id="apply-form" class="apply-form" action="./contact.html" method="POST" aria-label="Housing application inquiry">
+                    <form id="apply-form" class="apply-form" action="./api/contact" method="POST" aria-label="Housing application inquiry">
                         <div class="form-group">
                             <label for="apply-name">Full Name</label>
                             <input type="text" id="apply-name" name="name" placeholder="Your full name" required autocomplete="name">
@@ -1034,6 +1034,7 @@
         if (applyForm && applyStatus) {
             applyForm.addEventListener('submit', async (event) => {
                 event.preventDefault();
+                if (!applyForm.reportValidity()) return;
                 applyStatus.textContent = 'Sending…';
 
                 const formData = new FormData(applyForm);
@@ -1045,6 +1046,11 @@
                     message: String(formData.get('message') || '').trim()
                 };
 
+                if (!payload.name || !payload.phone || !payload.email) {
+                    applyStatus.textContent = 'Please provide your name, email, and phone number.';
+                    return;
+                }
+
                 try {
                     const response = await fetch('./api/contact', {
                         method: 'POST',
@@ -1052,11 +1058,19 @@
                         body: JSON.stringify(payload)
                     });
 
-                    if (!response.ok) throw new Error('Request failed');
+                    if (!response.ok) {
+                        let message = 'Server error';
+                        try {
+                            const data = await response.json();
+                            if (data?.error) message = data.error;
+                        } catch {}
+                        throw new Error(message);
+                    }
                     applyStatus.textContent = '✅ Inquiry sent. We will contact you shortly.';
                     applyForm.reset();
-                } catch {
-                    applyStatus.textContent = 'Unable to submit online. Please call or text (727) 420-2873 or email admin@amazinggracehl.org.';
+                } catch (error) {
+                    const detail = error instanceof Error ? error.message : 'network error';
+                    applyStatus.textContent = `Unable to submit online (${detail}). Please call or text (727) 420-2873 or email admin@amazinggracehl.org.`;
                 }
             });
         }
