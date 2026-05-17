@@ -17,16 +17,23 @@ describe('story and arcade cleanup', () => {
 
   it('uses content-based story routes instead of generic storybook names', () => {
     const library = fs.readFileSync('stories/library.json', 'utf8');
+    const libraryJson = JSON.parse(library);
     const matrixApp = fs.readFileSync('src/MatrixApp.jsx', 'utf8');
     const lampStory = fs.readFileSync('stories/books/the-lamp-in-the-window.html', 'utf8');
     const exposeStory = fs.readFileSync('stories/expose-the-matrix/index.html', 'utf8');
+    const viteConfig = fs.readFileSync('vite.config.ts', 'utf8');
 
     expect(library).not.toContain('storybook-1');
     expect(library).not.toContain('storybook-2');
-    expect(library).toContain('/stories/books/the-lamp-in-the-window.html');
-    expect(library).toContain('/stories/noah-and-the-ark/');
-    expect(matrixApp).toContain('/stories/books/the-lamp-in-the-window.html');
+    expect(libraryJson.entries.every((entry) => entry.path.startsWith('./'))).toBe(true);
+    expect(libraryJson.characters.every((character) => character.path.startsWith('./'))).toBe(true);
+    expect(library).toContain('./books/the-lamp-in-the-window.html');
+    expect(library).toContain('./noah-and-the-ark/');
+    expect(matrixApp).toContain('../../stories/books/the-lamp-in-the-window.html');
+    expect(matrixApp).toContain('../../stories/expose-the-matrix/');
     expect(lampStory).not.toContain('storybook-2');
+    expect(lampStory).toContain('../noah-and-the-ark/');
     expect(exposeStory).not.toContain('storybook-2');
+    expect(viteConfig).toContain('stories/noah-and-the-ark/index.html');
   });
 });
