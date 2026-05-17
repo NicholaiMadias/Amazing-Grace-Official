@@ -24,7 +24,7 @@ describe("ministry media library", () => {
 
     for (const assetPath of requiredPaths) {
       expect(html).toContain(assetPath);
-      expect(fs.existsSync(resolve(repoRoot, "ministry", assetPath))).toBe(true);
+      expect(fs.existsSync(resolve(repoRoot, assetPath.replace("../", "")))).toBe(true);
     }
 
     expect(html).toContain("assets/audio/ethiopian-bible/");
