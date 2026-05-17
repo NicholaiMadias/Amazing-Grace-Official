@@ -270,17 +270,20 @@
                 return;
             }
 
-            let uniquePoints = 0;
-            matches.forEach(m => {
-                if (board[m.r][m.c] !== 0) {
-                    board[m.r][m.c] = 0;
-                    uniquePoints += 10;
-                    const el = document.getElementById(`tile-${m.r}-${m.c}`);
+            const uniqueMatches = new Map();
+            matches.forEach(({ r, c }) => {
+                uniqueMatches.set(`${r}-${c}`, { r, c });
+            });
+
+            uniqueMatches.forEach(({ r, c }) => {
+                if (board[r][c] !== 0) {
+                    board[r][c] = 0;
+                    const el = document.getElementById(`tile-${r}-${c}`);
                     if (el) el.innerHTML = '';
                 }
             });
 
-            score += uniquePoints;
+            score += uniqueMatches.size * 10;
             updateHUD();
 
             setTimeout(() => {
