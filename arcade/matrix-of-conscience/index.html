@@ -334,7 +334,8 @@
             // Move focus into the modal
             const firstFocusable = modal.querySelector(
                 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"]), [contenteditable="true"], audio[controls], video[controls]'
-            );            if (firstFocusable) firstFocusable.focus();
+            );
+            if (firstFocusable) firstFocusable.focus();
         }
 
         function closeModal() {
