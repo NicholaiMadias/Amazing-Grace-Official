@@ -176,7 +176,11 @@ async function listRulesets({ owner, repo, token }) {
 async function listInstallations({ owner, repo, token }) {
   const url = `${DEFAULT_API_BASE}/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/installations`;
   const json = await ghFetchJson(url, { token });
-  const installations = Array.isArray(json) ? json : [];
+  const installations = Array.isArray(json)
+    ? json
+    : Array.isArray(json && json.installations)
+      ? json.installations
+      : [];
 
   for (const installation of installations) {
     const appId = installation.app_id;
