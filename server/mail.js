@@ -22,6 +22,7 @@
 import express from "express";
 import nodemailer from "nodemailer";
 import { rateLimit } from "express-rate-limit";
+import { requireAdminApiKey } from "./admin-auth.js";
 
 // ── Startup validation ─────────────────────────────────────────────────────────
 function requireEnv(name) {
@@ -60,11 +61,13 @@ const transporter = nodemailer.createTransport({
 app.use((req, res, next) => {
   const origin = process.env.ALLOWED_ORIGIN ?? "https://amazinggracehl.org";
   res.setHeader("Access-Control-Allow-Origin", origin);
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Admin-Api-Key");
   if (req.method === "OPTIONS") return res.sendStatus(204);
   next();
 });
+
+const storeItems = [];
 
 // ── Rate limiting (abuse protection on /contact) ──────────────────────────────
 const contactLimiter = rateLimit({
@@ -144,6 +147,30 @@ app.post("/contact", contactLimiter, async (req, res) => {
     console.error("❌ sendMail error:", err);
     return res.status(500).json({ error: "Failed to send email" });
   }
+});
+
+// ── Admin inventory endpoints (protected by ADMIN_API_KEY) ────────────────────
+app.get("/admin/store-items", requireAdminApiKey, (_req, res) => {
+  res.json({ ok: true, items: storeItems });
+});
+
+app.post("/admin/add-item", requireAdminApiKey, (req, res) => {
+  const { id, name, price } = req.body ?? {};
+  if (!name || typeof name !== "string") {
+    return res.status(400).json({ error: "name is required" });
+  }
+
+  if (price != null && (!Number.isFinite(Number(price)) || Number(price) < 0)) {
+    return res.status(400).json({ error: "price must be a non-negative number" });
+  }
+
+  const item = {
+    id: id ? String(id) : `item-${Date.now()}`,
+    name: name.trim(),
+    price: price == null ? null : Number(price),
+  };
+  storeItems.push(item);
+  return res.status(201).json({ ok: true, item });
 });
 
 // ── Test-email endpoint (smoke-test — requires secret token, dev-only in production) ──
