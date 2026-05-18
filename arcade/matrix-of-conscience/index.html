@@ -185,8 +185,8 @@
             color: var(--tile-accent, #7dd3fc);
         }
         .trinity-tile-label {
-            font-size: 0.46rem;
-            letter-spacing: 0.16em;
+            font-size: clamp(0.56rem, 1.5vw, 0.62rem);
+            letter-spacing: 0.08em;
             opacity: 0.8;
             text-align: center;
         }
@@ -520,14 +520,10 @@
             document.getElementById('stat-l').innerText = state.l;
             document.getElementById('stat-e').innerText = state.e;
             document.getElementById('stat-r').innerText = state.r;
-            const trinityCoreS = document.getElementById('trinity-core-s');
-            const trinityCoreL = document.getElementById('trinity-core-l');
-            const trinityCoreE = document.getElementById('trinity-core-e');
-            const trinityCoreR = document.getElementById('trinity-core-r');
-            if (trinityCoreS) trinityCoreS.innerText = state.s;
-            if (trinityCoreL) trinityCoreL.innerText = state.l;
-            if (trinityCoreE) trinityCoreE.innerText = state.e;
-            if (trinityCoreR) trinityCoreR.innerText = state.r;
+            ['s', 'l', 'e', 'r'].forEach((resourceKey) => {
+                const trinityCore = document.getElementById(`trinity-core-${resourceKey}`);
+                if (trinityCore) trinityCore.innerText = state[resourceKey];
+            });
             document.getElementById('cycle-display').innerText = `CYCLE: ${String(state.cycle).padStart(3, '0')}`;
 
             if (state.s <= 0 && !state.isFailed) { triggerFailure(); return; }
@@ -630,6 +626,9 @@
             dragIndex: null,
             hoverIndex: null
         };
+        const TRINITY_REWARD_COLORS = { l: '#fbbf24', r: '#34d399', e: '#f472b6', s: '#93c5fd' };
+        let trinityPointerFrame = null;
+        let trinityPointerCoords = null;
 
         function getTrinityBoardEl() {
             return document.getElementById('trinity-board');
@@ -811,7 +810,7 @@
                 : (rewardKey === 'l' ? 18 : 12);
             const amount = baseAmount + Math.max(0, chain - 1);
             state[rewardKey] += amount;
-            const color = rewardKey === 'l' ? '#fbbf24' : rewardKey === 'r' ? '#34d399' : rewardKey === 'e' ? '#f472b6' : '#93c5fd';
+            const color = TRINITY_REWARD_COLORS[rewardKey];
             const message = `+${amount}${rewardKey.toUpperCase()}`;
             spawnTrinityFloat(run, message, color);
             log(`TRINITY_ALIGNMENT: MATCH-${size} ${firstTile.label}. TELEMETRY ${message}.`);
@@ -871,6 +870,7 @@
             const originIndex = trinity.dragIndex;
             trinity.dragIndex = null;
             trinity.hoverIndex = null;
+            trinityPointerCoords = null;
             clearTrinityHighlights();
             if (indicesAreAdjacent(originIndex, targetIndex)) {
                 attemptTrinitySwap(originIndex, targetIndex);
@@ -900,26 +900,38 @@
             const targetIndex = Number(event.currentTarget.dataset.index);
             const sourceIndex = Number(event.dataTransfer.getData('text/plain'));
             trinity.dragIndex = null;
+            trinityPointerCoords = null;
             clearTrinityHighlights();
             if (indicesAreAdjacent(sourceIndex, targetIndex)) {
                 attemptTrinitySwap(sourceIndex, targetIndex);
             }
         }
 
-        document.addEventListener('pointermove', (event) => {
-            if (trinity.dragIndex === null || trinity.resolving) return;
+        function updateTrinityDropTarget(clientX, clientY) {
             document.querySelectorAll('.trinity-tile.drop-target').forEach((tile) => tile.classList.remove('drop-target'));
-            const hoveredTile = document.elementFromPoint(event.clientX, event.clientY)?.closest('.trinity-tile');
+            const hoveredTile = document.elementFromPoint(clientX, clientY)?.closest('.trinity-tile');
             if (!hoveredTile) return;
             const hoveredIndex = Number(hoveredTile.dataset.index);
             trinity.hoverIndex = hoveredIndex;
             if (indicesAreAdjacent(trinity.dragIndex, hoveredIndex)) {
                 hoveredTile.classList.add('drop-target');
             }
+        }
+
+        document.addEventListener('pointermove', (event) => {
+            if (trinity.dragIndex === null || trinity.resolving) return;
+            trinityPointerCoords = { clientX: event.clientX, clientY: event.clientY };
+            if (trinityPointerFrame !== null) return;
+            trinityPointerFrame = requestAnimationFrame(() => {
+                trinityPointerFrame = null;
+                if (!trinityPointerCoords) return;
+                updateTrinityDropTarget(trinityPointerCoords.clientX, trinityPointerCoords.clientY);
+            });
         });
 
         document.addEventListener('pointerup', (event) => {
             if (trinity.dragIndex === null) return;
+            trinityPointerCoords = null;
             const hoveredTile = document.elementFromPoint(event.clientX, event.clientY)?.closest('.trinity-tile');
             finishTrinityGesture(hoveredTile ? Number(hoveredTile.dataset.index) : null);
         });
