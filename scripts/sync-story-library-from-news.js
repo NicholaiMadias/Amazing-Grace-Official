@@ -133,19 +133,16 @@ function formatJson(value) {
 
 function syncLibraryWithNews(libraryJson) {
   const existingEntries = Array.isArray(libraryJson.entries) ? libraryJson.entries : [];
-  const managed = [];
 
   const keptEntries = existingEntries.filter((entry) => {
     const source = String(entry && entry.source ? entry.source : '');
     if (source === 'news') {
-      managed.push(entry);
       return false;
     }
 
     const slug = String(entry && entry.slug ? entry.slug : '');
     const entryPath = String(entry && entry.path ? entry.path : '');
     if (slug.startsWith('news-') && entryPath.startsWith('../news/articles/')) {
-      managed.push(entry);
       return false;
     }
 
