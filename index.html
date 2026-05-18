@@ -3,139 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Amazing Grace Home Living — Secure, all-inclusive housing in Tampa and Largo, Voice of Jesus Ministry, and The Seven Stars Educational Arcade.">
+    <meta name="description" content="Amazing Grace Home Living — secure, all-inclusive housing in Tampa and Largo, plus ministry and arcade resources.">
     <title>Amazing Grace Home Living</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="icon" type="image/png" href="./assets/logo.png">
     <style>
-        /* Base Theme - 7 Sisters Dark */
+        :root {
+            --bg: #020617;
+            --surface: #0f172a;
+            --surface-2: #111827;
+            --border: #1e293b;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-2: #facc15;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: Inter, Arial, sans-serif;
+            background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            color: var(--text);
             line-height: 1.6;
         }
-        
-        /* Strict Blue Link Rules */
-        a {
-            color: #3b82f6;
-            text-decoration: underline;
-        }
-        a:hover {
-            color: #60a5fa;
-        }
-        
-        /* Navigation */
+
+        a { color: var(--accent); }
+        a:hover { color: #7dd3fc; }
+
         .site-header {
-            background-color: #000000;
-            border-bottom: 1px solid #1e293b;
-            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(2, 6, 23, 0.96);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
         }
+
         .nav-container {
-            max-width: 1200px;
+            max-width: 1120px;
             margin: 0 auto;
+            padding: 1rem 1.25rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
             gap: 1rem;
         }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            font-weight: 600;
-        }
-        .nav-links a {
-            color: #ffffff;
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
             text-decoration: none;
-        }
-        .nav-links a.nav-active-page {
-            color: #eab308 !important; /* Yellow active state */
+            font-weight: 700;
         }
 
-        /* Main Content Layout */
+        .logo img {
+            height: 42px;
+            width: auto;
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 0.8rem;
+            border-radius: 999px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.nav-active-page {
+            background: rgba(56, 189, 248, 0.14);
+            color: #fff;
+        }
+
+        .menu-toggle {
+            display: none;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: #fff;
+            border-radius: 0.75rem;
+            padding: 0.45rem 0.75rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
         main {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 1rem;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
         }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #ffffff;
+
+        .hero {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+            align-items: center;
+            padding: 2rem 0 3rem;
         }
-        h2 {
-            font-size: 1.75rem;
-            margin-top: 3rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 0.5rem;
+
+        .hero-copy h1 {
+            font-size: clamp(2.3rem, 5vw, 3.75rem);
+            line-height: 1.05;
+            margin: 0 0 1rem;
         }
-        p {
+
+        .hero-copy p {
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin: 0 0 1.5rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .hero-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.1rem;
+            border-radius: 0.9rem;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #082f49;
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: rgba(15, 23, 42, 0.92);
+        }
+
+        .hero-panel {
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.25rem;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.32);
+        }
+
+        .hero-panel h2 {
+            margin-top: 0;
+            color: var(--accent-2);
+        }
+
+        .hero-panel ul {
+            margin: 0;
+            padding-left: 1rem;
+            color: var(--muted);
+        }
+
+        .section-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: end;
+            gap: 1rem;
             margin-bottom: 1.5rem;
-            color: #cbd5e1; /* Soft grey to keep focus on white headers and blue links */
         }
-        
-        /* Zero Cards / Clean List Layout */
-        .property-list {
-            list-style: none;
-            padding: 0;
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 2rem;
         }
-        .property-item {
-            margin-bottom: 2.5rem;
+
+        .section-header p {
+            margin: 0;
+            color: var(--muted);
+            max-width: 700px;
         }
-        .property-item h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+
+        .property-grid {
+            display: grid;
+            gap: 1.25rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .property-card {
+            background: rgba(15, 23, 42, 0.94);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+        }
+
+        .property-card img {
+            display: block;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #020617;
+        }
+
+        .property-card-content {
+            padding: 1.25rem;
+        }
+
+        .property-card h3 {
+            margin: 0 0 0.35rem;
+            font-size: 1.25rem;
+        }
+
+        .property-meta,
+        .property-copy {
+            color: var(--muted);
+            margin: 0 0 0.85rem;
+        }
+
+        .property-amenities {
+            margin: 0 0 1rem;
+            padding-left: 1.1rem;
+            color: var(--muted);
+        }
+
+        .property-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .property-cta a {
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .footer {
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            text-align: center;
+            padding: 1.5rem 1rem 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                padding-top: 0.5rem;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                border: 1px solid var(--border);
+                background: rgba(15, 23, 42, 0.92);
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
-
     <header class="site-header">
         <div class="nav-container">
-            
-            <a href="https://amazinggracehl.org/" style="display: flex; align-items: center; text-decoration: none;">
-                <img src="https://drive.google.com/uc?export=view&id=19BLW58GPLBvgjQ_WtCqAtaL8nrn9Zh-g" alt="Amazing Grace Home Living Logo" style="height: 40px; width: auto; display: block;">
+            <a href="./" class="logo" aria-label="Amazing Grace Home Living — Home">
+                <img src="./assets/logo.png" alt="Amazing Grace Home Living Logo">
+                <span>Amazing Grace Home Living</span>
             </a>
 
-            <nav class="nav-links">
-                <a href="https://amazinggracehl.org/" class="nav-active-page">Home</a>
-                <a href="https://amazinggracehl.org/stories/">Stories</a>
-                <a href="https://arcade.amazinggracehl.org/">Arcade</a>
-                <a href="https://ministry.amazinggracehl.org/">Ministry</a>
+            <nav id="main-nav" class="nav-links" aria-label="Main navigation">
+                <a href="./" class="nav-active-page" aria-current="page">Home</a>
+                <a href="./stories/">Stories</a>
+                <a href="./arcade/">Arcade</a>
+                <a href="./ministry/">Ministry</a>
+                <a href="./contact/">Contact</a>
             </nav>
+
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-controls="main-nav" aria-expanded="false">☰</button>
         </div>
     </header>
 
     <main>
-        <h1>Amazing Grace Home Living</h1>
-        <p>Providing secure, all-inclusive housing, spiritual community through the Voice of Jesus Ministry, and narrative journeys via the Nexus Arcade.</p>
+        <section class="hero">
+            <div class="hero-copy">
+                <h1>Secure housing, community support, and a cleaner path to update the site.</h1>
+                <p>
+                    Amazing Grace Home Living provides all-inclusive rooms in Tampa and Largo while keeping
+                    ministry and arcade resources easy to reach from one dependable GitHub Pages site.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn-primary" href="#properties">View available listings</a>
+                    <a class="btn-secondary" href="./contact/">Schedule a tour</a>
+                </div>
+            </div>
 
-        <h2>Our Properties</h2>
-        <ul class="property-list">
-            <li class="property-item">
-                <h3>926 East Poinsettia, Tampa FL</h3>
-                <p>All-inclusive housing node located in the heart of Tampa.</p>
-                <a href="https://drive.google.com/open?id=1hg8DVecMjQThcHQ3CSHuoE8PfcfjmvnH" target="_blank" rel="noopener noreferrer">View Gallery</a>
-            </li>
-            
-            <li class="property-item">
-                <h3>1142 7th Street NW, Largo FL</h3>
-                <p>Secure residential node offering quiet, structured living in Largo.</p>
-                <a href="https://drive.google.com/open?id=1FncGI155Ol4e6PzxUVyhFr0WOfmZWc15" target="_blank" rel="noopener noreferrer">View Gallery</a>
-            </li>
-            
-            <li class="property-item">
-                <h3>1144 7th Street NW, Largo FL</h3>
-                <p>Extended residential node located adjacent to our primary Largo housing.</p>
-                <a href="https://drive.google.com/open?id=1KeYRiTSzkr5YWcAdiUYU-fGFCR-lbCh3" target="_blank" rel="noopener noreferrer">View Gallery</a>
-            </li>
-        </ul>
+            <aside class="hero-panel" aria-label="Quick contact">
+                <h2>Now showing</h2>
+                <ul>
+                    <li>926 E Poinsettia Ave — Tampa, FL</li>
+                    <li>1142 7th Street NW — Largo, FL</li>
+                    <li>1144 7th Street NW — Largo, FL</li>
+                </ul>
+                <p><strong>Call:</strong> <a href="tel:+17274202873">727-420-2873</a><br><strong>Email:</strong> <a href="mailto:admin@amazinggracehl.org">admin@amazinggracehl.org</a></p>
+            </aside>
+        </section>
+
+        <section id="properties" aria-labelledby="properties-heading">
+            <div class="section-header">
+                <div>
+                    <h2 id="properties-heading">Available listings</h2>
+                    <p>Listing photos now live directly inside the repository under stable `assets/images/` paths instead of the old gallery and Google Drive setup.</p>
+                </div>
+            </div>
+
+            <div class="property-grid">
+                <article class="property-card">
+                    <img src="./assets/images/926-poinsettia/1000002510.jpg" alt="Bedroom at 926 E Poinsettia Ave in Tampa">
+                    <div class="property-card-content">
+                        <h3>926 E Poinsettia Ave</h3>
+                        <p class="property-meta">Tampa, FL · $850/mo</p>
+                        <p class="property-copy">All-inclusive housing in Tampa with washer/dryer access, Wi-Fi, utilities, and parking included.</p>
+                        <ul class="property-amenities">
+                            <li>Repo-hosted image set under <code>assets/images/926-poinsettia/</code></li>
+                            <li>Convenient central Tampa location</li>
+                            <li>Structured and supportive living environment</li>
+                        </ul>
+                        <div class="property-cta">
+                            <a href="./contact/">Ask about this room</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="property-card">
+                    <img src="./assets/images/1142-7th-street/CIOM8075.JPEG" alt="Interior room at 1142 7th Street NW in Largo">
+                    <div class="property-card-content">
+                        <h3>1142 7th Street NW</h3>
+                        <p class="property-meta">Largo, FL · $1,000/mo</p>
+                        <p class="property-copy">Quiet Largo housing with shared kitchen access, utilities included, and a stable home base near the coast.</p>
+                        <ul class="property-amenities">
+                            <li>Repo-hosted image set under <code>assets/images/1142-7th-street/</code></li>
+                            <li>Washer/dryer, Wi-Fi, utilities, and parking</li>
+                            <li>Standard room in a structured shared home</li>
+                        </ul>
+                        <div class="property-cta">
+                            <a href="./contact/">Ask about this room</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="property-card">
+                    <img src="./assets/images/1144-7th-street/1144-7th-street-largo.jpg" alt="Exterior of 1144 7th Street NW in Largo">
+                    <div class="property-card-content">
+                        <h3>1144 7th Street NW</h3>
+                        <p class="property-meta">Largo, FL · $1,000/mo</p>
+                        <p class="property-copy">Spacious Largo listing adjacent to the primary property, with the same all-inclusive utilities and shared living support.</p>
+                        <ul class="property-amenities">
+                            <li>Repo-hosted image set under <code>assets/images/1144-7th-street/</code></li>
+                            <li>Full kitchen, washer/dryer, Wi-Fi, and parking</li>
+                            <li>Additional room availability next door</li>
+                        </ul>
+                        <div class="property-cta">
+                            <a href="./contact/">Ask about this room</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
     </main>
 
+    <footer class="footer">
+        <p>&copy; 2026 Amazing Grace Home Living &mdash; Tampa and Largo, Florida</p>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        if (menuToggle && mainNav) {
+            function closeMobileNav() {
+                mainNav.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+
+                if (document.activeElement && typeof mainNav.contains === 'function' && mainNav.contains(document.activeElement)) {
+                    menuToggle.focus();
+                }
+            }
+
+            function openMobileNav() {
+                mainNav.classList.add('open');
+                menuToggle.setAttribute('aria-expanded', 'true');
+            }
+
+            menuToggle.addEventListener('click', () => {
+                if (mainNav.classList.contains('open')) {
+                    closeMobileNav();
+                } else {
+                    openMobileNav();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && mainNav.classList.contains('open')) {
+                    closeMobileNav();
+                }
+            });
+        }
+    </script>
 </body>
 </html>

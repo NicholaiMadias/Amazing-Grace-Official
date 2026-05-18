@@ -4,7 +4,7 @@ Welcome to Amazing Grace Home Living. Providing secure, all-inclusive housing in
 ## Site Sections
 
 ### 🏠 Home / Listings (`/`)
-The main homepage featuring property listings for Amazing Grace Home Living.
+The main homepage now serves as the only public listings page for Amazing Grace Home Living.
 
 ### 🎮 Arcade (`/arcade/`)
 The Nexus Arcade hub — play faith-based games including **Mystery of the Seven Stars** and **Match Maker**.
@@ -16,11 +16,6 @@ The Nexus Arcade hub — play faith-based games including **Mystery of the Seven
 
 ### ✝️ Ministry (`/ministry/`)
 Faith-based content and ministry resources.
-
-### 🗺️ Galleries (`/galleries/`)
-Photo galleries for individual properties.
-
----
 
 ## ⚠️ Admin Dashboard (`/admin/`) — Experimental
 
@@ -43,14 +38,13 @@ demo/dev use and is designed to be upgraded to Firebase Auth in production.
 
 ## 🏠 Property Addresses
 
-| Reference | Full Address | Gallery Path |
+| Reference | Full Address | Repo Asset Directory |
 |---|---|---|
-| 1144 | 1144 7th St NW, Largo, FL 33770 | `/galleries/1144-7th-street/` |
-| 1142 | 1142 7th St NW, Largo, FL 33770 | `/galleries/1142-7th-street/` |
-| 926 | **926 E Poinsettia Ave, Tampa, FL 33612, United States** | `/galleries/926-poinsettia/` |
-| Tampa *(archived/inactive)* | Tampa Property, Tampa, FL *(archived/inactive gallery)* | `/galleries/tampa-property/` |
+| 1144 | 1144 7th St NW, Largo, FL 33770 | `assets/images/1144-7th-street/` |
+| 1142 | 1142 7th St NW, Largo, FL 33770 | `assets/images/1142-7th-street/` |
+| 926 | **926 E Poinsettia Ave, Tampa, FL 33612, United States** | `assets/images/926-poinsettia/` |
 
-> **Note for contributors:** The active listings are `1144`, `1142`, and `926-poinsettia`. The 926 listing is in **Tampa** (not Largo). When referencing this property in code, copy, or file names use the `926-poinsettia` slug but always display the full address `926 E Poinsettia Ave, Tampa, FL 33612`. The separate `tampa-property` gallery is retained only as an archived/inactive reference and should not be treated as a current listing.
+> **Note for contributors:** The active listings are `1144`, `1142`, and `926-poinsettia`. The 926 listing is in **Tampa** (not Largo). The old routed gallery pages and Google Drive links were removed in favour of repo-hosted assets referenced directly from the homepage.
 
 ---
 
@@ -63,11 +57,10 @@ assets/
 ├── icon-512.png                 ← PWA icon
 ├── icon-512-maskable.png        ← PWA maskable icon
 │
-├── images/                      ← High-res property thumbnails + illustrations
-│   ├── property-1144.svg        ← 1144 7th St NW, Largo
-│   ├── property-1142.svg        ← 1142 7th St NW, Largo
-│   ├── property-926.svg         ← 926 E Poinsettia Ave, Tampa
-│   ├── property-tampa.svg       ← Tampa Property
+├── images/                      ← Property photo sets and supporting illustrations
+│   ├── 1144-7th-street/         ← 1144 7th St NW, Largo listing photos
+│   ├── 1142-7th-street/         ← 1142 7th St NW, Largo listing photos
+│   ├── 926-poinsettia/          ← 926 E Poinsettia Ave, Tampa listing photos
 │   └── supernova_explosion.svg  ← Game illustration
 │
 ├── icons/                       ← Small game-optimised icons & sprite frames
@@ -85,4 +78,4 @@ assets/
     └── <filename>.mid
 ```
 
-Gallery photo sets live under `public/galleries/<slug>/` and are indexed by `images.json` in each folder.
+The homepage reads listing photos directly from `assets/images/<slug>/`; the old `galleries/` route tree is no longer part of the site.

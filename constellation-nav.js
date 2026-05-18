@@ -21,7 +21,7 @@ if (!navRoot) {
 }
 
 const NAV_ITEMS = [
-  { id: 'galleries', label: 'Galleries', href: '/galleries/' },
+  { id: 'listings', label: 'Listings', href: '/#properties' },
   { id: 'stories', label: 'Library', href: '/stories/' },
   { id: 'arcade', label: 'Arcade', href: '/arcade/' },
   { id: 'ministry', label: 'Ministry', href: '/ministry/' },
@@ -35,7 +35,7 @@ const ATLAS_IDS = [
 ];
 
 const GEM_CONFIG = {
-  'gem-galleries': { label: 'Galleries', href: '/galleries/' },
+  'gem-galleries': { label: 'Listings', href: '/#properties' },
   'gem-stories': { label: 'Library', href: '/stories/' },
   'gem-arcade': { label: 'Arcade', href: '/arcade/' },
   'gem-ministry': { label: 'Ministry', href: '/ministry/' },
