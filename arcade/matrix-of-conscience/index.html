@@ -1,56 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-  (function () {
-    const allowedHosts = new Set([
-      "amazinggracehl.org",
-      "www.amazinggracehl.org",
-      "nicholaimadias.github.io",
-    ]);
-    const isHosted =
-      window.location.protocol === "https:" && allowedHosts.has(window.location.hostname);
-    if (!isHosted) return;
+    <script>
+      (function () {
+        const allowedHosts = new Set([
+          "amazinggracehl.org",
+          "www.amazinggracehl.org",
+          "nicholaimadias.github.io",
+        ]);
+        const isHosted =
+          window.location.protocol === "https:" && allowedHosts.has(window.location.hostname);
+        if (!isHosted) return;
 
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://www.googletagmanager.com/gtag/js?id=G-HKZ2G2VN78";
-    document.head.appendChild(script);
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-HKZ2G2VN78";
+        document.head.appendChild(script);
 
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      window.dataLayer.push(arguments);
-    };
-    window.gtag("js", new Date());
-    window.gtag("config", "G-HKZ2G2VN78");
-  })();
-</script>
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+        window.gtag("js", new Date());
+        window.gtag("config", "G-HKZ2G2VN78");
+      })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Matrix of Conscience: Legacy Protocol — manage Integrity, Lumen, Empathy, and Relief through Grace Protocols and cognitive training simulations.">
     <meta name="theme-color" content="#050505">
     <title>Matrix of Conscience: Legacy Protocol | Amazing Grace Arcade</title>
-    <script src="../../assets/vendor/tailwindcss.js"></script>
-    <script src="../../assets/vendor/hosted-only.js"></script>
-    <script>
-      window.AmazingGraceHostedOnly?.loadStylesheet("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-green: #00ff41;
             --dark-bg: #050505;
             --error-red: #ff3131;
         }
-        body {
-            background-color: var(--dark-bg);
-            color: var(--neon-green);
+
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--dark-bg); color: white; overflow: hidden; }
+        #matrix-of-conscience-root { position: relative; width: 100vw; height: 100vh; background: #000; }
+        canvas { display: block; position: fixed; inset: 0; z-index: 0; }
+        
+        /* Intro UI Styles */
+        .ui-overlay { position: absolute; inset: 0; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; font-family: 'Orbitron', sans-serif; }
+        .interactive { pointer-events: auto; }
+        .star-fragment { transition: all 0.5s ease; cursor: pointer; }
+        .star-fragment:hover { filter: brightness(1.5); transform: scale(1.1); }
+        .dialogue-box { background: rgba(0,0,0,0.7); border: 1px solid rgba(59,130,246,0.3); padding: 1.5rem; border-radius: 1rem; max-width: 80%; text-align: center; backdrop-filter: blur(5px); animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .glow-text { text-shadow: 0 0 10px rgba(59,130,246,0.8); }
+
+        /* Legacy Protocol Subroutine Styles */
+        .legacy-terminal {
             font-family: 'VT323', monospace;
-            overflow-x: hidden;
+            color: var(--neon-green);
             text-transform: uppercase;
+            animation: fadeIn 1.5s ease;
         }
+        
         .crt-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
                         linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             background-size: 100% 2px, 3px 100%;
@@ -59,147 +71,253 @@
         }
         .btn-matrix {
             border: 1px solid var(--neon-green);
-            padding: 4px 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: transparent;
-            color: var(--neon-green);
+            padding: 4px 12px; cursor: pointer; transition: all 0.2s;
+            background: rgba(0,0,0,0.6); color: var(--neon-green);
+            backdrop-filter: blur(3px);
         }
         .btn-matrix:hover:not(:disabled) {
-            background: var(--neon-green);
-            color: var(--dark-bg);
-            box-shadow: 0 0 15px var(--neon-green);
+            background: var(--neon-green); color: var(--dark-bg); box-shadow: 0 0 15px var(--neon-green);
         }
-        .btn-matrix:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            border-color: #333;
-        }
-        .stat-box {
-            border: 1px solid var(--neon-green);
-            padding: 10px;
-            background: rgba(0, 255, 65, 0.05);
-        }
-        .failure {
-            color: var(--error-red);
-            border-color: var(--error-red) !important;
-            animation: blink 0.5s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        .btn-matrix:disabled { opacity: 0.3; cursor: not-allowed; border-color: #333; }
+        
+        .stat-box { border: 1px solid var(--neon-green); padding: 10px; background: rgba(0, 255, 65, 0.05); backdrop-filter: blur(2px); }
+        .failure { color: var(--error-red); border-color: var(--error-red) !important; animation: blink 0.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        
         #game-log::-webkit-scrollbar { width: 4px; }
         #game-log::-webkit-scrollbar-track { background: transparent; }
         #game-log::-webkit-scrollbar-thumb { background: var(--neon-green); }
         
-        .memory-tile {
-            width: 50px; height: 50px;
-            border: 1px solid var(--neon-green);
-            display: inline-block;
-            margin: 5px;
-            cursor: pointer;
-            background: transparent;
-            padding: 0;
-            vertical-align: middle;
-        }
-        .memory-active { background: var(--neon-green); }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 1rem;
-            color: var(--neon-green);
-            text-decoration: none;
-            font-size: 0.9rem;
-            border: 1px solid transparent;
-            padding: 2px 8px;
-            border-radius: 4px;
-            transition: border-color 0.2s;
-        }
+        .back-link { display: inline-block; margin-bottom: 1rem; color: var(--neon-green); text-decoration: none; font-size: 0.9rem; border: 1px solid transparent; padding: 2px 8px; border-radius: 4px; transition: border-color 0.2s; background: rgba(0,0,0,0.5); }
         .back-link:hover { border-color: var(--neon-green); }
 
-        /* Modal: flex only when not hidden */
         #modal-overlay { display: none; }
         #modal-overlay.open { display: flex; }
         #modal-content { position: relative; }
     </style>
 </head>
-<body class="p-4 md:p-8">
-    <div class="crt-overlay"></div>
-
-    <div class="max-w-4xl mx-auto space-y-6 relative z-10">
-        <a href="../" class="back-link" aria-label="Back to Arcade">← back to arcade</a>
-
-        <header class="border-b border-green-500 pb-2 flex justify-between items-center">
-            <h1 class="text-3xl tracking-widest">MATRIX_OF_CONSCIENCE v1.0</h1>
-            <div id="cycle-display">CYCLE: 001</div>
-        </header>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="stat-box" id="box-s">
-                <div class="text-xs">INTEGRITY [S]</div>
-                <div id="stat-s" class="text-3xl">10</div>
+<body>
+    <div id="matrix-of-conscience-root">
+        <!-- Persistent Cosmic Canvas Background -->
+        <canvas id="cosmic-canvas"></canvas>
+        
+        <!-- CRT effect for subroutine (initially hidden) -->
+        <div id="crt-overlay" class="crt-overlay hidden"></div>
+        
+        <!-- INTRO: Fragment Alignment -->
+        <div id="intro-ui" class="ui-overlay">
+            <div id="game-dialogue" class="dialogue-box mb-8 hidden">
+                <p id="dialogue-text" class="text-blue-100 text-lg md:text-xl italic"></p>
             </div>
-            <div class="stat-box" id="box-l">
-                <div class="text-xs">LUMEN [L]</div>
-                <div id="stat-l" class="text-3xl">0</div>
-            </div>
-            <div class="stat-box" id="box-e">
-                <div class="text-xs">EMPATHY [E]</div>
-                <div id="stat-e" class="text-3xl">3</div>
-            </div>
-            <div class="stat-box" id="box-r">
-                <div class="text-xs">RELIEF [R]</div>
-                <div id="stat-r" class="text-3xl">100</div>
+
+            <div id="star-assembly" class="relative w-64 h-64 md:w-96 md:h-96 interactive hidden">
+                <!-- Fragments rendered via JS -->
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <section class="space-y-4">
-                <h2 class="text-xl border-b border-green-900">GRACE_PROTOCOLS</h2>
-                <div class="space-y-3">
-                    <div class="flex flex-col">
-                        <span class="text-xs opacity-70">GENEROSITY DUTY (COST: 10R | REWARD: +2S)</span>
-                        <button id="btn-generosity" class="btn-matrix text-left" onclick="executeProtocol('generosity')">EXECUTE: GENEROSITY_DUTY</button>
+        <!-- SUBROUTINE: Legacy Protocol (initially hidden) -->
+        <div id="legacy-protocol-ui" class="legacy-terminal relative z-20 max-w-4xl mx-auto space-y-6 p-4 md:p-8 h-full overflow-y-auto hidden">
+            <a href="../" class="back-link" aria-label="Back to Arcade">← terminate subroutine</a>
+
+            <header class="border-b border-green-500 pb-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                <h1 class="text-2xl md:text-3xl tracking-widest bg-black/50 px-2">MATRIX_OF_CONSCIENCE v1.0</h1>
+                <div id="cycle-display" class="bg-black/50 px-2">CYCLE: 001</div>
+            </header>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="stat-box" id="box-s">
+                    <div class="text-xs">INTEGRITY [S]</div>
+                    <div id="stat-s" class="text-3xl">10</div>
+                </div>
+                <div class="stat-box" id="box-l">
+                    <div class="text-xs">LUMEN [L]</div>
+                    <div id="stat-l" class="text-3xl">0</div>
+                </div>
+                <div class="stat-box" id="box-e">
+                    <div class="text-xs">EMPATHY [E]</div>
+                    <div id="stat-e" class="text-3xl">3</div>
+                </div>
+                <div class="stat-box" id="box-r">
+                    <div class="text-xs">RELIEF [R]</div>
+                    <div id="stat-r" class="text-3xl">100</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <section class="space-y-4 bg-black/40 p-4 border border-green-900/50">
+                    <h2 class="text-xl border-b border-green-900">GRACE_PROTOCOLS</h2>
+                    <div class="space-y-3">
+                        <div class="flex flex-col">
+                            <span class="text-xs opacity-70">GENEROSITY DUTY (COST: 10R | REWARD: +2S)</span>
+                            <button id="btn-generosity" class="btn-matrix text-left" onclick="executeProtocol('generosity')">EXECUTE: GENEROSITY_DUTY</button>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs opacity-70">MERCY GRACE (COST: 1E | REWARD: +3S, +75L)</span>
+                            <button id="btn-mercy" class="btn-matrix text-left" onclick="executeProtocol('mercy')">EXECUTE: MERCY_GRACE</button>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs opacity-70">COMPASSION GRACE (COST: 1E + ALL R | REWARD: +5S, +150L)</span>
+                            <button id="btn-compassion" class="btn-matrix text-left" onclick="executeProtocol('compassion')">EXECUTE: COMPASSION_GRACE</button>
+                        </div>
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-xs opacity-70">MERCY GRACE (COST: 1E | REWARD: +3S, +75L)</span>
-                        <button id="btn-mercy" class="btn-matrix text-left" onclick="executeProtocol('mercy')">EXECUTE: MERCY_GRACE</button>
+
+                    <div class="pt-6">
+                        <button id="btn-end-turn" class="btn-matrix w-full py-4 text-xl" onclick="endTurn()">INITIALIZE NEXT CYCLE [SYSTEM_TICK]</button>
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-xs opacity-70">COMPASSION GRACE (COST: 1E + ALL R | REWARD: +5S, +150L)</span>
-                        <button id="btn-compassion" class="btn-matrix text-left" onclick="executeProtocol('compassion')">EXECUTE: COMPASSION_GRACE</button>
+                </section>
+
+                <section class="space-y-4 bg-black/40 p-4 border border-green-900/50">
+                    <h2 class="text-xl border-b border-green-900">COGNITIVE_TRAINING</h2>
+                    <div id="training-modules" class="space-y-2">
+                        <button id="btn-reflex" class="btn-matrix w-full text-left" onclick="startReflex()">[S] REFLEX_SIMULATION</button>
+                        <button id="btn-memory" class="btn-matrix w-full text-left" onclick="startMemory()">[L] MEMORY_SIMULATION (REQ: 100L)</button>
+                        <button id="btn-creativity" class="btn-matrix w-full text-left" onclick="startCreativity()">[E] CREATIVITY_SIMULATION (REQ: 15S)</button>
                     </div>
-                </div>
 
-                <div class="pt-6">
-                    <button id="btn-end-turn" class="btn-matrix w-full py-4 text-xl" onclick="endTurn()">INITIALIZE NEXT CYCLE [SYSTEM_TICK]</button>
-                </div>
-            </section>
+                    <div id="game-log" class="h-48 overflow-y-auto border border-green-900 p-2 text-xs opacity-80 bg-black/80 font-mono">
+                        <div>[SYSTEM] SUBROUTINE INITIALIZED. STANDBY FOR INPUT.</div>
+                        <div>[DATA] V_START: {S:10, L:0, E:3, R:100}</div>
+                    </div>
+                </section>
+            </div>
 
-            <section class="space-y-4">
-                <h2 class="text-xl border-b border-green-900">COGNITIVE_TRAINING</h2>
-                <div id="training-modules" class="space-y-2">
-                    <button id="btn-reflex" class="btn-matrix w-full text-left" onclick="startReflex()">[S] REFLEX_SIMULATION</button>
-                    <button id="btn-memory" class="btn-matrix w-full text-left" onclick="startMemory()">[L] MEMORY_SIMULATION (REQ: 100L)</button>
-                    <button id="btn-creativity" class="btn-matrix w-full text-left" onclick="startCreativity()">[E] CREATIVITY_SIMULATION (REQ: 15S)</button>
+            <div id="modal-overlay" class="fixed inset-0 items-center justify-center p-4 z-50" style="background:rgba(0,0,0,0.85); backdrop-filter: blur(4px);">
+                <div id="modal-content" class="border border-green-500 p-8 max-w-md w-full bg-black text-center space-y-4 shadow-[0_0_30px_rgba(0,255,65,0.2)]">
                 </div>
-
-                <div id="game-log" class="h-48 overflow-y-auto border border-green-900 p-2 text-xs opacity-80 bg-black font-mono">
-                    <div>[SYSTEM] INITIALIZED. STANDBY FOR INPUT.</div>
-                    <div>[DATA] V_START: {S:10, L:0, E:3, R:100}</div>
-                </div>
-            </section>
-        </div>
-
-        <div id="modal-overlay" class="fixed inset-0 items-center justify-center p-4 z-50" style="background:rgba(0,0,0,0.95);">
-            <div id="modal-content" class="border border-green-500 p-8 max-w-md w-full bg-black text-center space-y-4">
             </div>
         </div>
     </div>
 
     <script>
+        (function() {
+            // --- Cosmic Canvas Engine ---
+            const canvas = document.getElementById(`cosmic-canvas`);
+            const ctx = canvas.getContext(`2d`);
+            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener(`resize`, resize); resize();
+
+            const stars = [];
+            for (let i = 0; i < 250; i++) {
+                stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 1.5 + 0.5, twinkle: Math.random() * 0.5 + 0.5 });
+            }
+
+            let shootingStar = null;
+            function spawnShootingStar() {
+                if (!shootingStar && Math.random() < 0.005) {
+                    shootingStar = { x: Math.random() * canvas.width, y: Math.random() * canvas.height * 0.3, vx: -8 - Math.random() * 4, vy: 3 + Math.random() * 2, life: 0 };
+                }
+            }
+
+            function render() {
+                ctx.fillStyle = `#000`; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                stars.forEach(s => {
+                    const tw = (Math.sin(Date.now() * 0.002 + s.twinkle) + 1) / 2;
+                    ctx.fillStyle = `rgba(255,255,255,${0.5 + tw * 0.5})`;
+                    ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2); ctx.fill();
+                });
+
+                spawnShootingStar();
+                if (shootingStar) {
+                    ctx.strokeStyle = `rgba(255,255,255,0.8)`;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(shootingStar.x, shootingStar.y);
+                    ctx.lineTo(shootingStar.x + shootingStar.vx * 3, shootingStar.y + shootingStar.vy * 3);
+                    ctx.stroke();
+                    shootingStar.x += shootingStar.vx;
+                    shootingStar.y += shootingStar.vy;
+                    shootingStar.life++;
+                    if (shootingStar.life > 60) shootingStar = null;
+                }
+                requestAnimationFrame(render);
+            }
+            render();
+
+            // --- Intro Fragment Logic ---
+            const dialogue = document.getElementById(`game-dialogue`);
+            const dialogueText = document.getElementById(`dialogue-text`);
+            const assembly = document.getElementById(`star-assembly`);
+            const introUI = document.getElementById(`intro-ui`);
+            const legacyUI = document.getElementById(`legacy-protocol-ui`);
+            const crtOverlay = document.getElementById(`crt-overlay`);
+
+            const fragments = [
+                { id: `brave`, color: `#3b82f6`, label: `Brave`, angle: 0 },
+                { id: `compassionate`, color: `#10b981`, label: `Compassionate`, angle: 51.4 },
+                { id: `analytical`, color: `#8b5cf6`, label: `Analytical`, angle: 102.8 },
+                { id: `radiant`, color: `#ffffff`, label: `Radiant`, angle: 154.2 },
+                { id: `hopeful`, color: `#f59e0b`, label: `Hopeful`, angle: 205.6 },
+                { id: `wounded`, color: `#ef4444`, label: `Wounded`, angle: 257.0 },
+                { id: `fearful`, color: `#4b5563`, label: `Fearful`, angle: 308.4 }
+            ];
+
+            let alignedCount = 0;
+
+            async function type(text) {
+                dialogue.classList.remove(`hidden`);
+                dialogueText.innerText = ``;
+                for(let char of text) {
+                    dialogueText.innerText += char;
+                    await new Promise(r => setTimeout(r, 30));
+                }
+                await new Promise(r => setTimeout(r, 1800));
+            }
+
+            async function init() {
+                await type(`Welcome to the place where all choices converge.`);
+                await type(`Behold the fragments of your reflection. Align them to restore the Star Matrix.`);
+                
+                assembly.classList.remove(`hidden`);
+                assembly.style.opacity = 1;
+                
+                fragments.forEach((f, i) => {
+                    const el = document.createElement(`div`);
+                    el.className = `star-fragment absolute w-16 h-16 md:w-24 md:h-24 flex items-center justify-center text-[10px] font-bold uppercase rounded-full`;
+                    el.style.backgroundColor = f.color;
+                    el.style.boxShadow = `0 0 20px ${f.color}66`;
+                    el.style.color = i === 3 ? `#000` : `#fff`;
+                    el.innerText = f.label;
+                    
+                    const radius = 120 + Math.random() * 50;
+                    const startAngle = Math.random() * Math.PI * 2;
+                    el.style.left = `calc(50% + ${Math.cos(startAngle) * radius}px - 32px)`;
+                    el.style.top = `calc(50% + ${Math.sin(startAngle) * radius}px - 32px)`;
+                    
+                    el.onclick = async () => {
+                        if (el.dataset.aligned === `true`) return;
+                        el.dataset.aligned = `true`;
+                        const targetRadius = 100;
+                        const targetAngle = (f.angle * Math.PI) / 180;
+                        el.style.left = `calc(50% + ${Math.cos(targetAngle) * targetRadius}px - 32px)`;
+                        el.style.top = `calc(50% + ${Math.sin(targetAngle) * targetRadius}px - 32px)`;
+                        el.style.transform = `scale(1.2)`;
+                        el.style.zIndex = 100;
+                        alignedCount++;
+                        
+                        if (alignedCount === fragments.length) {
+                            await type(`The Map is complete. Your conscience is refined.`);
+                            assembly.style.transition = `transform 2s ease-in-out, opacity 1s`;
+                            assembly.style.transform = `rotate(720deg) scale(0)`;
+                            assembly.style.opacity = 0;
+                            
+                            await type(`Booting Legacy Protocol subroutine...`);
+                            
+                            setTimeout(() => {
+                                introUI.classList.add(`hidden`);
+                                legacyUI.classList.remove(`hidden`);
+                                crtOverlay.classList.remove(`hidden`);
+                                updateUI();
+                            }, 1000);
+                        }
+                    };
+                    assembly.appendChild(el);
+                });
+            }
+
+            window.onload = init;
+        })();
+
+        // --- Legacy Protocol Subroutine Logic ---
         let state = { s: 10, l: 0, e: 3, r: 100, cycle: 1, isFailed: false };
 
         function updateUI() {
@@ -229,12 +347,12 @@
             logDiv.scrollTop = logDiv.scrollHeight;
         }
 
-        function endTurn() {
+        window.endTurn = function() {
             if (state.isFailed) return;
             state.s -= 2; state.r += 20; state.cycle += 1;
             log(`CYCLE ${state.cycle} INITIALIZED. DECAY: -2S. GENERATION: +20R.`);
             updateUI();
-        }
+        };
 
         function triggerFailure() {
             state.isFailed = true; state.s = 0;
@@ -244,7 +362,7 @@
             updateUI();
         }
 
-        function executeProtocol(type) {
+        window.executeProtocol = function(type) {
             if (state.isFailed) return;
             switch(type) {
                 case 'generosity': if (state.r >= 10) { state.r -= 10; state.s += 2; log("PROTOCOL: GENEROSITY_DUTY SUCCESSFUL."); } break;
@@ -252,20 +370,21 @@
                 case 'compassion': if (state.e >= 1) { state.e -= 1; state.r = 0; state.s += 5; state.l += 150; log("PROTOCOL: COMPASSION_GRACE ACTIVATED."); } break;
             }
             updateUI();
-        }
+        };
 
         const modal = document.getElementById('modal-overlay');
         const modalContent = document.getElementById('modal-content');
-        function openModal(content) { modalContent.innerHTML = content; modal.classList.add('open'); }
-        function closeModal() { modal.classList.remove('open'); }
+        window.openModal = function(content) { modalContent.innerHTML = content; modal.classList.add('open'); };
+        window.closeModal = function() { modal.classList.remove('open'); };
 
-        function startReflex() {
+        window.startReflex = function() {
             openModal(`<button class="btn-matrix" style="float:right;" onclick="closeModal()">✕</button><h3 class="text-2xl">REFLEX_SIMULATION</h3><div id="reflex-box" class="h-48 flex items-center justify-center border border-green-900 mt-4"><span id="reflex-status">STANDBY...</span></div>`);
             setTimeout(() => {
                 const startTime = performance.now();
                 document.getElementById('reflex-status').innerHTML = `<button class="btn-matrix py-8 px-12" onclick="finishReflex(${startTime})">INTERCEPT NOW!</button>`;
             }, Math.random() * 2000 + 1500);
-        }
+        };
+        
         window.finishReflex = function(startTime) {
             const diff = performance.now() - startTime;
             let gain = diff < 300 ? 3 : (diff < 500 ? 2 : 1);
@@ -273,12 +392,22 @@
             closeModal(); updateUI();
         };
 
-        function startMemory() {
+        window.startMemory = function() {
             openModal(`<button class="btn-matrix" style="float:right;" onclick="closeModal()">✕</button><h3 class="text-2xl">MEMORY_SIMULATION</h3><button class="btn-matrix w-full mt-4 py-2" onclick="finishMemory()">[AUTO-RESOLVE: +25L]</button>`);
-        }
+        };
         window.finishMemory = function() { state.l += 25; log("MEMORY RECALL VERIFIED. GAIN: +25L."); closeModal(); updateUI(); };
 
-        function startCreativity() {
+        window.startCreativity = function() {
             openModal(`<button class="btn-matrix" style="float:right;" onclick="closeModal()">✕</button><h3 class="text-2xl">CREATIVITY_SIMULATION</h3><button class="btn-matrix w-full mt-4 py-2" onclick="finishCreativity()">[AUTO-RESOLVE: +1E]</button>`);
-        }
-        window.finishCreativity = function() { state.e += 1; log("CREATIVITY VERIFIED. EMPATHY CORE GENER
+        };
+        
+        // Fixed cut-off code
+        window.finishCreativity = function() { 
+            state.e += 1; 
+            log("CREATIVITY VERIFIED. EMPATHY CORE GENERATED. GAIN: +1E."); 
+            closeModal(); 
+            updateUI(); 
+        };
+    </script>
+</body>
+</html>
