@@ -31,37 +31,28 @@
     <meta name="description" content="Storybook Library — ministry testimonies, branching narratives, and fictional adventures from Amazing Grace Home Living.">
     <meta name="theme-color" content="#000000">
     <link rel="icon" type="image/png" href="../assets/logo.png">
+    <link rel="stylesheet" href="../assets/css/unified-nav.css">
     <title>Storybook Library | Amazing Grace Home Living</title>
 
     <style>
-        .nav-logo-link {
-            display: none !important;
-        }
-
         body {
             background: #000;
             color: #ccc;
             font-family: 'Courier New', Courier, monospace;
             font-size: 1rem;
             line-height: 1.7;
-            padding: 2rem 1.5rem;
-            max-width: 720px;
-            margin: 0 auto;
+            margin: 0;
         }
 
         a { color: #4af; text-decoration: underline; }
         a:hover, a:focus { color: #7cf; }
         a:focus-visible { outline: 2px solid #4af; outline-offset: 2px; }
 
-        /* ── Top nav ── */
-        .topnav {
-            font-size: 0.85rem;
-            margin-bottom: 2.5rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.25rem 1rem;
+        .page {
+            padding: 2rem 1.5rem;
+            max-width: 720px;
+            margin: 0 auto;
         }
-        .topnav a { white-space: nowrap; }
 
         /* ── Header ── */
         header h1 {
@@ -167,12 +158,22 @@
 </head>
 <body>
 
-<nav class="topnav" aria-label="Site navigation">
-    <a href="../">Home</a>
-    <a href="./">Library</a>
-    <a href="../ministry/">Ministry</a>
-    <a href="../arcade/">Arcade</a>
-</nav>
+<header class="site-header">
+    <div class="nav-container">
+        <a href="../" class="logo" aria-label="Amazing Grace Home Living — Home">
+            <img src="../assets/logo.png" alt="Amazing Grace Home Living">
+        </a>
+        <nav id="main-nav" class="nav-links" aria-label="Main navigation">
+            <a href="../#properties">Listings</a>
+            <a href="./" class="active" aria-current="page">Stories</a>
+            <a href="../arcade/">Arcade</a>
+            <a href="../ministry/">Ministry</a>
+            <a href="../contact/">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="page">
 
 <header>
     <h1>📚 Storybook Library</h1>
@@ -187,6 +188,19 @@
 
 <h2 class="section-heading" id="stories">📖 Story Experiences</h2>
 <ul id="story-list" aria-label="Story list"></ul>
+
+<hr>
+
+<h2 class="section-heading" id="blog">📰 Blog</h2>
+<ul aria-label="Blog posts">
+    <li>
+        <div class="row">
+            <span class="icon" aria-hidden="true">📰</span>
+            <a class="story-link" href="./blog/architectural-js-synthesis.html">Architectural JS Synthesis of the Matrix of Conscience</a>
+        </div>
+        <div class="meta">First article · Matrix of Conscience architecture</div>
+    </li>
+</ul>
 
 <hr>
 
@@ -295,7 +309,6 @@
 
     loadStories();
 </script>
-<div id="constellation-nav"></div>
-<script type="module" src="../constellation-nav.js"></script>
+</main>
 </body>
 </html>
