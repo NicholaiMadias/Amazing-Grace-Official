@@ -1,14 +1,21 @@
-import { createHash, timingSafeEqual } from "node:crypto";
+import { timingSafeEqual } from "node:crypto";
 
-function sha256(value) {
-  return createHash("sha256").update(String(value)).digest();
+function secureEqual(a, b) {
+  const aBuffer = Buffer.from(String(a));
+  const bBuffer = Buffer.from(String(b));
+  const maxLength = Math.max(aBuffer.length, bBuffer.length, 1);
+  const aPadded = Buffer.alloc(maxLength);
+  const bPadded = Buffer.alloc(maxLength);
+  aBuffer.copy(aPadded);
+  bBuffer.copy(bPadded);
+  return timingSafeEqual(aPadded, bPadded) && aBuffer.length === bBuffer.length;
 }
 
 function readHeader(req, name) {
   if (typeof req?.get === "function") return req.get(name);
   const headers = req?.headers ?? {};
   const direct = headers[name];
-  if (direct) return direct;
+  if (direct != null) return direct;
   const lower = headers[name.toLowerCase()];
   return lower ?? null;
 }
@@ -29,16 +36,14 @@ export function extractAdminCredential(req) {
   return "";
 }
 
-export function isAuthorizedAdminRequest(req, expectedSecret = process.env.ADMIN_API_KEY) {
-  const expected = String(expectedSecret ?? "").trim();
+export function isAuthorizedAdminRequest(req, expectedSecret) {
+  const expected = String(expectedSecret ?? process.env.ADMIN_API_KEY ?? "").trim();
   if (!expected) return false;
 
   const provided = extractAdminCredential(req);
   if (!provided) return false;
 
-  const expectedHash = sha256(expected);
-  const providedHash = sha256(provided);
-  return expectedHash.length === providedHash.length && timingSafeEqual(expectedHash, providedHash);
+  return secureEqual(expected, provided);
 }
 
 export function requireAdminApiKey(req, res, next) {

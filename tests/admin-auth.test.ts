@@ -38,7 +38,7 @@ describe("admin-auth", () => {
     });
 
     afterEach(() => {
-      if (original == null) {
+      if (original === undefined) {
         delete process.env.ADMIN_API_KEY;
       } else {
         process.env.ADMIN_API_KEY = original;
@@ -48,7 +48,7 @@ describe("admin-auth", () => {
     function createRes() {
       const res = {
         code: 200,
-        payload: null as unknown,
+        payload: undefined as unknown,
         status(code: number) {
           this.code = code;
           return this;

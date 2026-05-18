@@ -23,6 +23,7 @@ import express from "express";
 import nodemailer from "nodemailer";
 import { rateLimit } from "express-rate-limit";
 import { requireAdminApiKey } from "./admin-auth.js";
+import { addStoreItemHandler, listStoreItemsHandler } from "./admin-store.js";
 
 // ── Startup validation ─────────────────────────────────────────────────────────
 function requireEnv(name) {
@@ -67,8 +68,6 @@ app.use((req, res, next) => {
   next();
 });
 
-const storeItems = [];
-
 // ── Rate limiting (abuse protection on /contact) ──────────────────────────────
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -76,6 +75,14 @@ const contactLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: "Too many submissions — please try again in 15 minutes." },
+});
+
+const adminLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many admin requests. Please try again shortly." },
 });
 
 // ── HTML entity escaping (prevents XSS in email HTML body) ───────────────────
@@ -150,28 +157,8 @@ app.post("/contact", contactLimiter, async (req, res) => {
 });
 
 // ── Admin inventory endpoints (protected by ADMIN_API_KEY) ────────────────────
-app.get("/admin/store-items", requireAdminApiKey, (_req, res) => {
-  res.json({ ok: true, items: storeItems });
-});
-
-app.post("/admin/add-item", requireAdminApiKey, (req, res) => {
-  const { id, name, price } = req.body ?? {};
-  if (!name || typeof name !== "string") {
-    return res.status(400).json({ error: "name is required" });
-  }
-
-  if (price != null && (!Number.isFinite(Number(price)) || Number(price) < 0)) {
-    return res.status(400).json({ error: "price must be a non-negative number" });
-  }
-
-  const item = {
-    id: id ? String(id) : `item-${Date.now()}`,
-    name: name.trim(),
-    price: price == null ? null : Number(price),
-  };
-  storeItems.push(item);
-  return res.status(201).json({ ok: true, item });
-});
+app.get("/admin/store-items", adminLimiter, requireAdminApiKey, listStoreItemsHandler);
+app.post("/admin/add-item", adminLimiter, requireAdminApiKey, addStoreItemHandler);
 
 // ── Test-email endpoint (smoke-test — requires secret token, dev-only in production) ──
 app.get("/test-email", async (req, res) => {
