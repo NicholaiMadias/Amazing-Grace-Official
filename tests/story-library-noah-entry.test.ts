@@ -22,6 +22,14 @@ describe('Noah and the Ark library integration', () => {
     expect(html).toContain('<h1 class="hero-title">Noah and the Ark</h1>');
   });
 
+
+  it('uses the canonical local logo asset instead of external hotlinks', () => {
+    const html = fs.readFileSync('stories/noah-and-the-ark/index.html', 'utf8');
+
+    expect(html).toContain('../../assets/logo.png');
+    expect(html).not.toContain('drive.google.com/uc?export=view&id=19BLW58GPLBvgjQ_WtCqAtaL8nrn9Zh-g');
+  });
+
   it('includes the story page in Vite multi-page build inputs', () => {
     const viteConfig = fs.readFileSync('vite.config.ts', 'utf8');
     expect(viteConfig).toContain('stories/noah-and-the-ark/index.html');

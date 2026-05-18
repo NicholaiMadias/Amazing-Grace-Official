@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The Amazing Grace Nexus Arcade — play Seven Stars, Match Maker, and Matrix of Conscience, interactive faith-based games from Amazing Grace Home Living.">
+    <meta name="description" content="The Amazing Grace Nexus Arcade — play Seven Stars, Trinity Match, and Matrix of Conscience, interactive faith-based games from Amazing Grace Home Living.">
     <meta name="theme-color" content="#0f172a">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Nexus Arcade — Amazing Grace Home Living">
-    <meta property="og:description" content="Play Seven Stars, Match Maker, and Matrix of Conscience at the Amazing Grace Nexus Arcade.">
+    <meta property="og:description" content="Play Seven Stars, Trinity Match, and Matrix of Conscience at the Amazing Grace Nexus Arcade.">
     <meta property="og:url" content="https://amazinggracehl.org/arcade">
 
     <link rel="icon" type="image/png" href="../assets/logo.png">
@@ -668,21 +668,13 @@
             <a href="../" class="nav-btn">🏠 Home</a>
             <a href="../stories/" class="nav-btn">📚 Library</a>
             <a href="./" class="nav-btn active" aria-current="page">🎮 Arcade</a>
-            <a href="../#properties" class="nav-btn">🏘️ Listings</a>
+            <a href="../ministry/" class="nav-btn">🕊️ Ministry</a>
             <a href="../ministries/" class="nav-btn" style="background:rgba(124,58,237,0.4);">✨ Seven Stars</a>
-            <a href="../#apply" class="nav-btn">✉️ Contact</a>
+            <a href="../contact/" class="nav-btn">✉️ Contact</a>
         </nav>
 
         <button class="menu-toggle" aria-label="Toggle navigation" aria-controls="main-nav" aria-expanded="false">☰</button>
     </header>
-
-    <!-- Portal Selector -->
-    <div class="portal-bar" role="navigation" aria-label="Portal navigation">
-        <a href="../#properties" class="portal-link">🏠 Listings</a>
-        <a href="./" class="portal-link active" aria-current="page">🎮 Arcade</a>
-        <a href="../ministry/" class="portal-link">🕊️ Ministry</a>
-        <a href="../ministries/" class="portal-link">✨ Seven Stars</a>
-    </div>
 
     <!-- Main -->
     <main>
@@ -692,13 +684,6 @@
             <div class="arcade-header">
                 <h1>⚡ Nexus Arcade</h1>
                 <p>Play, learn, and grow through interactive faith-based games.</p>
-            </div>
-
-            <div class="arcade-downloads" aria-label="Offline downloads">
-                <a class="game-btn arcade-download-btn" href="./downloads/nexus-match-maker.zip" download="nexus-match-maker.zip" aria-label="Download the Nexus Match-Maker browser extension scaffold">
-                    <span>🧩 Download Nexus Match-Maker Extension <small>MV3 scaffold + Seven-Star atlas assets</small></span>
-                    <span aria-hidden="true">⬇</span>
-                </a>
             </div>
 
             <div class="game-grid">
@@ -712,29 +697,14 @@
                     <button class="play-btn play-btn-gold" tabindex="-1">▶ Play Now</button>
                 </div>
 
-                <!-- Match Maker Card -->
-                <div class="game-card card-match" role="button" tabindex="0" aria-label="Play Match Maker" onclick="launchGame('matchmaker')" onkeydown="if(event.key==='Enter'||event.key===' ')launchGame('matchmaker')">
-                    <div class="game-card-icon match-maker-icon-wrap" aria-hidden="true">
-                        <svg viewBox="0 0 128 128">
-                            <use href="../assets/svg/master-atlas.svg#icon-seven-stars"></use>
-                        </svg>
-                        <span class="match-maker-gems">
-                            <svg viewBox="0 0 50 50">
-                                <use href="../assets/svg/gems-atlas.svg#gem-electra"></use>
-                            </svg>
-                            <svg viewBox="0 0 50 50">
-                                <use href="../assets/svg/gems-atlas.svg#gem-maia"></use>
-                            </svg>
-                            <svg viewBox="0 0 50 50">
-                                <use href="../assets/svg/gems-atlas.svg#gem-taygete"></use>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="game-card-title">Match Maker</div>
-                    <div class="game-card-desc">Swap and match Seven-Star gems on a 7×7 board. Unlock special tiles, build combos, grow your Conscience Meter, and earn ⭐ credits (1 pt = 1 credit).</div>
+                <!-- Trinity Match Card -->
+                <a href="./trinity/" class="game-card card-match" style="text-decoration:none;" aria-label="Play Trinity Match">
+                    <div class="game-card-icon">🔺</div>
+                    <div class="game-card-title">Trinity Match</div>
+                    <div class="game-card-desc">A self-contained gem puzzle replacement for Match Maker, built as one stable arcade page to avoid broken asset and route dependencies.</div>
                     <span class="game-card-badge badge-teal">Gem Puzzle</span>
                     <button class="play-btn play-btn-teal" tabindex="-1">▶ Play Now</button>
-                </div>
+                </a>
 
                 <!-- Quick Click Card -->
                 <a href="./quick-click/" class="game-card card-match-v2" style="text-decoration:none;" aria-label="Play Quick Click">
@@ -763,19 +733,6 @@
                     <button class="play-btn play-btn-violet" tabindex="-1">▶ Enter the Matrix</button>
                 </a>
 
-                <!-- Property Listings Card -->
-                <div id="property-listings" class="game-card card-listings" aria-label="Available Rooms — Amazing Grace Home Living">
-                    <div class="game-card-icon">🏠</div>
-                    <div class="game-card-title">Available Rooms — Amazing Grace Home Living</div>
-                    <ul class="listing-list">
-                        <li><strong>926 E Poinsettia Ave, Tampa FL</strong> — $850/mo (all inclusive, washer/dryer, Wi‑Fi, utilities, parking)</li>
-                        <li><strong>1142 7th St NW, Largo FL</strong> — $1,000/mo (standard room, washer/dryer, full kitchen, Wi‑Fi, utilities, parking)</li>
-                        <li><strong>1144 7th St NW, Largo FL</strong> — $1,000/mo (spacious room, washer/dryer, full kitchen, Wi‑Fi, utilities, parking)</li>
-                    </ul>
-                    <p class="listing-contact">Call <a href="tel:+17274202873">727‑420‑2873</a> or email <a href="mailto:admin@amazinggracehl.org">admin@amazinggracehl.org</a> to schedule a tour.</p>
-                    <span class="game-card-badge badge-green">Rooms Available</span>
-                </div>
-
             </div>
         </div>
 
@@ -800,76 +757,12 @@
             </div>
         </div>
 
-        <!-- ======================================================
-             Match Maker Game Stage
-             ====================================================== -->
-        <div id="stage-matchmaker" class="game-stage">
-            <button class="stage-back-btn" onclick="backToLobby()">← Back to Arcade</button>
-
-            <!-- HUD -->
-            <div class="mm-hud">
-                <div class="mm-stat"><div class="mm-stat-label">Score</div><div id="match-score" class="mm-stat-value">0</div></div>
-                <div class="mm-stat"><div class="mm-stat-label">Level</div><div id="match-level" class="mm-stat-value">1</div></div>
-                <div class="mm-stat"><div class="mm-stat-label">Moves</div><div id="match-moves" class="mm-stat-value">20</div></div>
-            </div>
-
-            <div id="match-msg" class="text-sm text-center min-h-[1.4em] mb-2" style="color:#7effd8"></div>
-
-            <div id="match-badge-banner" class="hidden text-center font-bold py-2 px-4 rounded max-w-sm mx-auto mb-2 match-badge-banner"></div>
-
-            <!-- 7×7 Grid -->
-            <div id="match-grid" class="match-grid-board mx-auto" role="grid" aria-label="Match Maker game board"></div>
-
-            <!-- Conscience Meter -->
-            <div class="mm-conscience mx-auto mt-4">
-                <h3 class="text-xs font-bold mb-2 text-center uppercase tracking-wide" style="color:var(--text-muted)">Conscience Meter</h3>
-                <div class="mm-bar-row"><span class="mm-bar-label">Empathy</span><div class="mm-bar-track"><div id="mc-empathy-bar" class="mm-bar-fill bg-pink-400"></div></div><span id="mc-empathy" class="mm-bar-pct">0</span></div>
-                <div class="mm-bar-row"><span class="mm-bar-label">Justice</span><div class="mm-bar-track"><div id="mc-justice-bar" class="mm-bar-fill bg-blue-400"></div></div><span id="mc-justice" class="mm-bar-pct">0</span></div>
-                <div class="mm-bar-row"><span class="mm-bar-label">Wisdom</span><div class="mm-bar-track"><div id="mc-wisdom-bar" class="mm-bar-fill bg-purple-400"></div></div><span id="mc-wisdom" class="mm-bar-pct">0</span></div>
-                <div class="mm-bar-row"><span class="mm-bar-label">Growth</span><div class="mm-bar-track"><div id="mc-growth-bar" class="mm-bar-fill bg-green-400"></div></div><span id="mc-growth" class="mm-bar-pct">0</span></div>
-            </div>
-
-            <!-- Save Slot -->
-            <div class="text-center mt-4">
-                <label for="save-slot" class="text-sm font-medium mr-2" style="color:var(--text-muted)">Save Slot:</label>
-                <select id="save-slot" class="border rounded px-2 py-1 text-sm" style="background:var(--surface);border-color:var(--border);color:var(--text)">
-                    <option value="slot1">Slot 1</option>
-                    <option value="slot2">Slot 2</option>
-                    <option value="slot3">Slot 3</option>
-                </select>
-            </div>
-
-            <!-- Star Progress Map -->
-            <div id="star-map-container" class="mx-auto mt-4" style="max-width:560px;background:var(--surface);border-radius:0.75rem;border:1px solid var(--border);" aria-label="Star progress map"></div>
-
-            <!-- Certificates link -->
-            <div class="text-center mt-3">
-                <a href="./certificates/" style="font-size:0.75rem;color:var(--text-muted);text-decoration:none;">📜 My Certificates</a>
-            </div>
-        </div>
-
     </main>
 
     <!-- Footer -->
     <footer class="site-footer">
         <p>&copy; 2026 Amazing Grace Home Living &mdash; <a href="../">amazinggracehl.org</a></p>
     </footer>
-
-    <!-- Star map module (updates on level completion) -->
-    <script>
-        (function () {
-            function refreshStarMap() {
-                import('/star-map.js').then(function (m) {
-                    var container = document.getElementById('star-map-container');
-                    if (container) m.renderStarMap(container);
-                }).catch(function (err) { console.warn('[star-map] Failed to load star-map.js:', err); });
-            }
-
-            refreshStarMap();
-            document.addEventListener('matchmaker-level-complete', refreshStarMap);
-            document.addEventListener('matchmakerComplete', refreshStarMap);
-        })();
-    </script>
 
     <script>
         // ── Mobile menu toggle ──────────────────────────────────────────
@@ -883,31 +776,16 @@
         // ── Game launcher ───────────────────────────────────────────────
         const lobby          = document.getElementById('game-lobby');
         const stageSeven     = document.getElementById('stage-sevenstars');
-        const stageMatch     = document.getElementById('stage-matchmaker');
-        let matchInitialized  = false;
 
         function launchGame(id) {
             lobby.style.display = 'none';
             stageSeven.classList.remove('active');
-            stageMatch.classList.remove('active');
 
             if (id === 'sevenstars') {
                 stageSeven.classList.add('active');
                 if (!window._sevenStarsStarted) {
                     window._sevenStarsStarted = true;
                     initSevenStars();
-                }
-            } else if (id === 'matchmaker') {
-                stageMatch.classList.add('active');
-                if (!matchInitialized) {
-                    matchInitialized = true;
-                    import('/match-maker-ui.js')
-                        .then(m => m.initMatchMaker(null, null))
-                        .catch(err => {
-                            console.error('Match Maker failed to load:', err);
-                            document.getElementById('match-grid').innerHTML =
-                                '<p style="color:var(--text-muted);padding:2rem;text-align:center">⚠️ Match Maker could not be loaded. Please refresh the page.</p>';
-                        });
                 }
             } else {
                 console.warn('[arcade] Unknown game id:', id);
@@ -917,7 +795,6 @@
 
         function backToLobby() {
             stageSeven.classList.remove('active');
-            stageMatch.classList.remove('active');
             lobby.style.display = '';
         }
 
@@ -928,132 +805,6 @@
             if (gameId) {
                 launchGame(gameId);
             }
-        });
-
-        // ── Match Maker completion certificate ─────────────────────────
-        document.addEventListener('matchmakerComplete', (e) => {
-            const scoreVal = e.detail?.score ?? 0;
-            const stage    = document.getElementById('stage-matchmaker');
-            if (!stage) return;
-
-            const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow-y:auto;padding:2rem 1rem;text-align:center;';
-
-            overlay.innerHTML = `
-                <div style="max-width:600px;width:100%;margin:0 auto">
-                    <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
-                    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,4vw,2.25rem);color:#FFD700;margin-bottom:.5rem">Congratulations!</h2>
-                    <p style="color:#94a3b8;margin-bottom:1.25rem;line-height:1.6">You've completed all five levels of Match Maker!<br>Final Score: <strong style="color:#7effd8">${scoreVal}</strong></p>
-                    <div style="background:rgba(126,255,216,.08);border:1px solid var(--accent);border-radius:1rem;padding:1.25rem;margin-bottom:1.5rem">
-                        <p style="color:var(--accent);font-weight:700;margin-bottom:.35rem">🔮 Match Maker — All Levels Complete</p>
-                        <p style="color:#cbd5e1;font-size:.825rem">Empathy &bull; Justice &bull; Wisdom &bull; Growth</p>
-                    </div>
-                    <div style="margin-bottom:1rem">
-                        <label for="mm-cert-name" style="color:#94a3b8;font-size:.875rem;display:block;margin-bottom:.4rem;text-align:left">Your name for the certificate (optional):</label>
-                        <input id="mm-cert-name" type="text" placeholder="Player" maxlength="40" class="cert-input">
-                    </div>
-                    <div class="cert-btn-row" style="margin-bottom:.75rem">
-                        <button id="mm-gen-cert" class="game-btn" style="background:#7effd8;color:#0f172a;font-weight:700">🏆 Generate Certificate</button>
-                    </div>
-                    <div class="cert-canvas-wrap" style="width:100%">
-                        <canvas id="mm-cert-canvas" style="display:none;max-width:100%;border:2px solid var(--accent);border-radius:.5rem;margin:1rem auto"></canvas>
-                    </div>
-                    <div id="mm-cert-btns" class="cert-btn-row" style="display:none;margin-bottom:1rem">
-                        <button id="mm-dl-png" class="game-btn">⬇ Download PNG</button>
-                        <button id="mm-print" class="game-btn" style="background:rgba(255,255,255,.08)">🖨 Print / Save PDF</button>
-                    </div>
-                    <button id="mm-back-lobby" class="game-btn" style="background:none;border:1px solid var(--border);color:#94a3b8;margin-top:.5rem">↩ Back to Arcade</button>
-                </div>`;
-
-            document.body.appendChild(overlay);
-
-            function drawMMCert(canvas, name) {
-                canvas.width  = 800;
-                canvas.height = 560;
-                const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#0f172a';
-                ctx.fillRect(0, 0, 800, 560);
-                ctx.strokeStyle = '#7effd8';
-                ctx.lineWidth = 6;
-                ctx.strokeRect(16, 16, 768, 528);
-                ctx.strokeStyle = 'rgba(126,255,216,0.3)';
-                ctx.lineWidth = 1;
-                ctx.strokeRect(26, 26, 748, 508);
-                ctx.font = '28px serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('🔮', 50, 80);
-                ctx.fillText('🔮', 750, 80);
-                ctx.fillStyle = '#7effd8';
-                ctx.font = 'bold 36px Georgia, serif';
-                ctx.fillText('Certificate of Completion', 400, 100);
-                ctx.fillStyle = 'rgba(126,255,216,0.4)';
-                ctx.fillRect(100, 115, 600, 2);
-                ctx.fillStyle = '#94a3b8';
-                ctx.font = 'italic 18px Georgia, serif';
-                ctx.fillText('This certifies that', 400, 160);
-                ctx.fillStyle = '#FFD700';
-                ctx.font = 'bold 32px Georgia, serif';
-                ctx.fillText(name, 400, 215);
-                ctx.fillStyle = '#e2e8f0';
-                ctx.font = '18px Georgia, serif';
-                ctx.fillText('has successfully completed all five levels of', 400, 265);
-                ctx.fillStyle = '#7effd8';
-                ctx.font = 'bold 26px Georgia, serif';
-                ctx.fillText('Match Maker', 400, 310);
-                ctx.fillStyle = '#94a3b8';
-                ctx.font = '14px Georgia, serif';
-                ctx.fillText('Aligning virtues of Empathy, Justice, Wisdom, and Growth', 400, 350);
-                ctx.fillText('through the power of faith-based gem matching', 400, 373);
-                ctx.fillStyle = 'rgba(126,255,216,0.4)';
-                ctx.fillRect(100, 408, 600, 1);
-                const date = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-                ctx.fillStyle = '#e2e8f0';
-                ctx.font = '16px Georgia, serif';
-                ctx.fillText('Completed on ' + date + '  |  Final Score: ' + scoreVal, 400, 445);
-                const uid = 'AGC-MM-' + Date.now().toString(36).toUpperCase();
-                ctx.fillStyle = '#64748b';
-                ctx.font = '12px monospace';
-                ctx.fillText('Certificate ID: ' + uid, 400, 490);
-                ctx.fillStyle = '#334155';
-                ctx.font = 'bold 11px sans-serif';
-                ctx.fillText('Amazing Grace Home Living — amazinggracehl.org', 400, 535);
-            }
-
-            overlay.querySelector('#mm-gen-cert').addEventListener('click', () => {
-                const name   = (overlay.querySelector('#mm-cert-name').value.trim() || 'Player');
-                const canvas = overlay.querySelector('#mm-cert-canvas');
-                drawMMCert(canvas, name);
-                canvas.style.display = 'block';
-                overlay.querySelector('#mm-cert-btns').style.display = 'flex';
-            });
-
-            overlay.querySelector('#mm-dl-png').addEventListener('click', () => {
-                const canvas = overlay.querySelector('#mm-cert-canvas');
-                if (!canvas || canvas.style.display === 'none') return;
-                canvas.toBlob(blob => {
-                    if (!blob) { console.error('Certificate export failed: canvas produced no blob.'); return; }
-                    const url = URL.createObjectURL(blob);
-                    const a   = document.createElement('a');
-                    a.href = url; a.download = 'match-maker-certificate-' + Date.now() + '.png';
-                    document.body.appendChild(a); a.click();
-                    document.body.removeChild(a); URL.revokeObjectURL(url);
-                });
-            });
-
-            overlay.querySelector('#mm-print').addEventListener('click', () => {
-                const canvas = overlay.querySelector('#mm-cert-canvas');
-                if (!canvas || canvas.style.display === 'none') return;
-                const dataUrl = canvas.toDataURL('image/png');
-                const win = window.open('', '_blank');
-                if (!win) return;
-                win.document.write('<!DOCTYPE html><html><head><title>Certificate</title><style>body{margin:0;background:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}img{max-width:100%}</style></head><body><img src="' + dataUrl + '" onload="window.print()"></body></html>');
-                win.document.close();
-            });
-
-            overlay.querySelector('#mm-back-lobby').addEventListener('click', () => {
-                overlay.remove();
-                backToLobby();
-            });
         });
 
         // ── Seven Stars game ────────────────────────────────────────────
