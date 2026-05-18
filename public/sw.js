@@ -1,4 +1,4 @@
-const CACHE_NAME = 'amazing-grace-v7';
+const CACHE_NAME = 'amazing-grace-v8';
 
 // Core pages and game modules deployed at stable paths.
 // Use scope-relative URLs (./…) so the service worker works correctly
