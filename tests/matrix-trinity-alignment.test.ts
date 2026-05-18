@@ -17,7 +17,8 @@ describe('matrix trinity alignment integration', () => {
     expect(html).toContain("button.addEventListener('pointerdown', beginTrinityPointerDrag);");
     expect(html).toContain("button.addEventListener('dragstart', beginTrinityHtmlDrag);");
     expect(html).toContain('function awardTrinityTelemetry(run, chain)');
-    expect(html).toContain("const resourcePool = size >= 4 ? ['e', 's'] : ['l', 'r'];");
+    expect(html).toContain("match3Reward: 'l'");
+    expect(html).toContain("match4Reward: 's'");
     expect(html).toContain("window.openTrinity = function()");
     expect(html).toContain("window.closeTrinity = function()");
   });

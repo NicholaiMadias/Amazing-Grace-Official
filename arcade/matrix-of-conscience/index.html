@@ -610,12 +610,12 @@
 
         const TRINITY_GRID_SIZE = 6;
         const TRINITY_TILES = [
-            { icon: 'heart', label: 'MERCY', shortLabel: 'MER', accent: '#fb7185' },
-            { icon: 'zap', label: 'COURAGE', shortLabel: 'COU', accent: '#facc15' },
-            { icon: 'sun', label: 'LUMEN', shortLabel: 'LUM', accent: '#f59e0b' },
-            { icon: 'shield', label: 'INTEGRITY', shortLabel: 'INT', accent: '#60a5fa' },
-            { icon: 'sparkles', label: 'SERENITY', shortLabel: 'SER', accent: '#c084fc' },
-            { icon: 'leaf', label: 'RELIEF', shortLabel: 'REL', accent: '#34d399' }
+            { icon: 'heart', label: 'EMPATHY', shortLabel: 'EMP', accent: '#fb7185', match3Reward: 'r', match4Reward: 'e' },
+            { icon: 'zap', label: 'COURAGE', shortLabel: 'COU', accent: '#facc15', match3Reward: 'l', match4Reward: 's' },
+            { icon: 'sun', label: 'LUMEN', shortLabel: 'LUM', accent: '#f59e0b', match3Reward: 'l', match4Reward: 'e' },
+            { icon: 'shield', label: 'INTEGRITY', shortLabel: 'INT', accent: '#60a5fa', match3Reward: 'r', match4Reward: 's' },
+            { icon: 'sparkles', label: 'SERENITY', shortLabel: 'SER', accent: '#c084fc', match3Reward: 'l', match4Reward: 'e' },
+            { icon: 'leaf', label: 'RELIEF', shortLabel: 'REL', accent: '#34d399', match3Reward: 'r', match4Reward: 's' }
         ];
         const trinity = {
             board: [],
@@ -803,8 +803,7 @@
         function awardTrinityTelemetry(run, chain) {
             const size = run.length;
             const firstTile = TRINITY_TILES[trinity.board[run[0]]];
-            const resourcePool = size >= 4 ? ['e', 's'] : ['l', 'r'];
-            const rewardKey = resourcePool[trinity.board[run[0]] % resourcePool.length];
+            const rewardKey = size >= 4 ? firstTile.match4Reward : firstTile.match3Reward;
             const baseAmount = size >= 4
                 ? (rewardKey === 'e' ? 1 : 2)
                 : (rewardKey === 'l' ? 18 : 12);
