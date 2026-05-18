@@ -11,7 +11,7 @@ describe('matrix legacy replacement', () => {
   });
 
   it('removes the redundant matrix-legacy route file and build input', () => {
-    const input = Object.values(viteConfig.build?.rollupOptions?.input as Record<string, string>).map(String);
+    const input = Object.values(viteConfig.build?.rollupOptions?.input as Record<string, string>);
 
     expect(fs.existsSync('arcade/matrix-legacy/index.html')).toBe(false);
     expect(input.some((value) => value.includes('arcade/matrix-legacy/index.html'))).toBe(false);
