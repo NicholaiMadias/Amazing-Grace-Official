@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Matrix of Conscience Protocol</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <script src="../../assets/vendor/hosted-only.js"></script>
+    <script>
+        if (window.location.protocol !== 'file:') {
+            document.write('<link rel="preconnect" href="https://fonts.googleapis.com">');
+            document.write('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>');
+            document.write('<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">');
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"><\/script>');
+        } else {
+            document.write('<script src="../../assets/vendor/tailwindcss.js"><\/script>');
+        }
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -110,7 +117,9 @@
 
         function initGame() {
             document.getElementById('start-screen').classList.add('hidden');
-            try { document.documentElement.requestFullscreen(); } catch (e) { /* Fullscreen may be blocked by browser/user settings; continue normally. */ }
+            try { document.documentElement.requestFullscreen(); } catch (e) {
+                console.warn('Fullscreen request was not granted.', e);
+            }
             createBoard();
         }
 
@@ -119,6 +128,10 @@
             document.getElementById('start-screen').classList.remove('hidden');
             score = 0; currentLevel = 1;
             updateHUD();
+        }
+
+        function wouldCreateImmediateMatch(r, c, row, type) {
+            return (c >= 2 && type === row[c-1] && type === row[c-2]) || (r >= 2 && type === board[r-1][c] && type === board[r-2][c]);
         }
 
         function createBoard() {
@@ -134,17 +147,11 @@
                     do {
                         type = Math.floor(Math.random() * 7) + 1;
                         attempts++;
-                    } while (
-                        attempts < 20 &&
-                        ((c >= 2 && type === row[c-1] && type === row[c-2]) || (r >= 2 && type === board[r-1][c] && type === board[r-2][c]))
-                    );
-                    const createsRowMatch = c >= 2 && type === row[c-1] && type === row[c-2];
-                    const createsColumnMatch = r >= 2 && type === board[r-1][c] && type === board[r-2][c];
-                    if (createsRowMatch || createsColumnMatch) {
+                    } while (attempts < 20 && wouldCreateImmediateMatch(r, c, row, type));
+
+                    if (wouldCreateImmediateMatch(r, c, row, type)) {
                         for (let fallback = 1; fallback <= 7; fallback++) {
-                            const fallbackRowMatch = c >= 2 && fallback === row[c-1] && fallback === row[c-2];
-                            const fallbackColumnMatch = r >= 2 && fallback === board[r-1][c] && fallback === board[r-2][c];
-                            if (!fallbackRowMatch && !fallbackColumnMatch) {
+                            if (!wouldCreateImmediateMatch(r, c, row, fallback)) {
                                 type = fallback;
                                 break;
                             }
@@ -270,20 +277,17 @@
                 return;
             }
 
-            const uniqueMatches = new Map();
-            matches.forEach(({ r, c }) => {
-                uniqueMatches.set(`${r}-${c}`, { r, c });
-            });
-
-            uniqueMatches.forEach(({ r, c }) => {
-                if (board[r][c] !== 0) {
-                    board[r][c] = 0;
-                    const el = document.getElementById(`tile-${r}-${c}`);
+            let earnedPoints = 0;
+            matches.forEach(m => {
+                if (board[m.r][m.c] !== 0) {
+                    board[m.r][m.c] = 0;
+                    earnedPoints += 10;
+                    const el = document.getElementById(`tile-${m.r}-${m.c}`);
                     if (el) el.innerHTML = '';
                 }
             });
 
-            score += uniqueMatches.size * 10;
+            score += earnedPoints;
             updateHUD();
 
             setTimeout(() => {
