@@ -18,6 +18,7 @@
             --muted: #94a3b8;
             --accent: #38bdf8;
             --neon-blue: #0ea5e9;
+            --gold: #facc15;
         }
 
         * { box-sizing: border-box; }
@@ -116,23 +117,75 @@
             list-style: none;
             padding: 0;
             margin: 0 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.25rem;
         }
 
         .story-list li {
-            margin: 0.75rem 0;
+            margin: 0;
         }
 
-        .story-link {
-            color: var(--neon-blue);
+        .story-card {
+            display: flex;
+            flex-direction: column;
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s;
             text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: inline-block;
-            transition: color 0.2s;
+            color: var(--text);
         }
 
-        .story-link:hover {
-            color: #7dd3fc;
+        .story-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .story-card-thumb {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            display: block;
+            background: #0f172a;
+        }
+
+        .story-card-thumb-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: rgba(56, 189, 248, 0.06);
+        }
+
+        .story-card-body {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+            margin: 0 0 0.4rem;
+        }
+
+        .story-card-meta {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin: 0 0 0.5rem;
+        }
+
+        .story-card-summary {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin: 0;
+            flex: 1;
         }
 
         .resource-link {
@@ -171,6 +224,76 @@
             padding: 1.5rem 1rem 2rem;
         }
 
+        .audio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin: 1rem 0 2rem;
+        }
+
+        .audio-card {
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.1rem;
+        }
+
+        .audio-card h4 {
+            margin: 0 0 0.35rem;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .audio-card p {
+            margin: 0 0 0.75rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .audio-card audio {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-feature {
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid rgba(56, 189, 248, 0.28);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 0 0 2rem;
+        }
+
+        .blog-feature h3 {
+            margin: 0 0 0.5rem;
+            font-size: 1.3rem;
+            color: #fff;
+        }
+
+        .blog-feature p {
+            color: var(--muted);
+            margin: 0 0 1rem;
+        }
+
+        .blog-feature a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .blog-feature a:hover { color: #7dd3fc; }
+
+        .media-download {
+            display: inline-block;
+            font-size: 0.82rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .media-download:hover { color: #7dd3fc; }
+
         @media (max-width: 768px) {
             .nav-container {
                 flex-wrap: wrap;
@@ -204,6 +327,64 @@
             <!-- Stories will be loaded dynamically -->
         </ul>
 
+        <h2 class="section-heading">🎵 Audio Collection</h2>
+
+        <div class="audio-grid">
+            <article class="audio-card">
+                <h4>Storm</h4>
+                <p>Atmospheric score for dramatic ministry and story moments.</p>
+                <audio controls preload="none">
+                    <source src="../assets/audio/storm.mp3" type="audio/mpeg">
+                </audio>
+                <a class="media-download" href="../assets/audio/storm.mp3" download>Download MP3</a>
+            </article>
+
+            <article class="audio-card">
+                <h4>Victory</h4>
+                <p>Celebration cue used for success and completion moments.</p>
+                <audio controls preload="none">
+                    <source src="../assets/audio/victory.mp3" type="audio/mpeg">
+                </audio>
+                <a class="media-download" href="../assets/audio/victory.mp3" download>Download MP3</a>
+            </article>
+
+            <article class="audio-card">
+                <h4>Ending</h4>
+                <p>Long-form ambient track preserved for story and ministry playback.</p>
+                <audio controls preload="none">
+                    <source src="../assets/audio/ending.mp3" type="audio/mpeg">
+                </audio>
+                <a class="media-download" href="../assets/audio/ending.mp3" download>Download MP3</a>
+            </article>
+
+            <article class="audio-card">
+                <h4>Badge</h4>
+                <p>Short reward stinger used across the arcade experience.</p>
+                <audio controls preload="none">
+                    <source src="../assets/audio/badge.mp3" type="audio/mpeg">
+                </audio>
+                <a class="media-download" href="../assets/audio/badge.mp3" download>Download MP3</a>
+            </article>
+
+            <article class="audio-card">
+                <h4>Course Clear Fanfare</h4>
+                <p>Arcade completion fanfare from the shared audio library.</p>
+                <audio controls preload="none">
+                    <source src="../assets/audio/course-clear-fanfare.mp3" type="audio/mpeg">
+                </audio>
+                <a class="media-download" href="../assets/audio/course-clear-fanfare.mp3" download>Download MP3</a>
+            </article>
+
+            <article class="audio-card">
+                <h4>Player Down</h4>
+                <p>Game-over and warning cue from the ministry audio archive.</p>
+                <audio controls preload="none">
+                    <source src="../assets/audio/player-down.mp3" type="audio/mpeg">
+                </audio>
+                <a class="media-download" href="../assets/audio/player-down.mp3" download>Download MP3</a>
+            </article>
+        </div>
+
         <h2 class="section-heading">Resources</h2>
 
         <a href="https://drive.google.com/file/d/1OVEEA0f9oXdfy62ZBEAKMU75-Ly99o7c/view?usp=drive_link" class="resource-link" target="_blank" rel="noopener noreferrer">
@@ -211,15 +392,19 @@
             <p class="resource-desc">Access the complete Ethiopian Bible translation.</p>
         </a>
 
-        <a href="../audio-library/" class="resource-link">
-            <div class="resource-title">🎵 Audio Library</div>
-            <p class="resource-desc">Listen to audio recordings, sermons, and faith-based teachings.</p>
-        </a>
-
         <a href="../stories/" class="resource-link">
             <div class="resource-title">📑 Stories Archive</div>
             <p class="resource-desc">Browse the complete archive of all stories and articles.</p>
         </a>
+
+        <h2 class="section-heading">📝 Featured Blog</h2>
+
+        <div class="blog-feature">
+            <span style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);font-weight:700;">First article</span>
+            <h3>Architectural JS Synthesis of the Matrix of Conscience</h3>
+            <p>An architectural deep-dive into unifying the Sequence Stabilizer, Binary Rain, and a point-based economy in high-fidelity simulation environments.</p>
+            <a href="../stories/blog/architectural-js-synthesis.html">Read full article →</a>
+        </div>
     </main>
 
     <footer class="footer">
@@ -227,12 +412,38 @@
     </footer>
 
     <script>
+        var THUMBNAILS = {
+            'matrix-of-conscience': 'https://github.com/user-attachments/assets/9743f88b-2425-4a99-8eec-509bed3e24b3',
+            'expose-the-matrix':    'https://github.com/user-attachments/assets/08bda5db-0092-4a12-a378-94184861db7b',
+            'noah-and-the-ark':     'https://github.com/user-attachments/assets/ca12975d-2699-4bfd-b9ef-d06b4452cef6',
+            'the-lamp-in-the-window': 'https://github.com/user-attachments/assets/5e315c2c-6185-474e-a3f8-1ebf56224e45'
+        };
+
         function esc(str) {
             return String(str || '')
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;');
+        }
+
+        function resolvePath(entry) {
+            var p = entry.path || '';
+            // paths like ./slug/ are relative to stories/ — rewrite to ../stories/slug/
+            if (p.startsWith('./')) return '../stories/' + p.slice(2);
+            // paths like ../news/... are already correct relative to /library/
+            if (p.startsWith('../')) return p;
+            // fallback: build from slug
+            return entry.slug ? '../stories/' + entry.slug + '/' : '#';
+        }
+
+        function pickIcon(entry) {
+            var tags = Array.isArray(entry.tags) ? entry.tags.map(function(t){ return String(t).toLowerCase(); }) : [];
+            var genre = String(entry.genre || '').toLowerCase();
+            if (tags.indexOf('faith') !== -1 || genre.indexOf('faith') !== -1) return '✝';
+            if (tags.indexOf('matrix') !== -1 || tags.indexOf('sci-fi') !== -1 || genre.indexOf('sci') !== -1) return '⌬';
+            if (tags.indexOf('covenant') !== -1) return '✧';
+            return '📖';
         }
 
         async function loadStories() {
@@ -254,13 +465,24 @@
                 }
 
                 entries.forEach(function (entry) {
-                    var href = entry.path || (entry.slug ? '../stories/' + entry.slug + '/' : '#');
+                    var href = resolvePath(entry);
+                    var thumb = THUMBNAILS[entry.slug] || null;
                     var li = document.createElement('li');
-                    var link = document.createElement('a');
-                    link.className = 'story-link';
-                    link.href = href;
-                    link.textContent = entry.title || 'Untitled';
-                    li.appendChild(link);
+
+                    var thumbHtml = thumb
+                        ? '<img class="story-card-thumb" src="' + esc(thumb) + '" alt="' + esc(entry.title) + '" loading="lazy">'
+                        : '<div class="story-card-thumb-placeholder">' + esc(pickIcon(entry)) + '</div>';
+
+                    var metaParts = [entry.author, entry.series, entry.genre].filter(Boolean);
+                    li.innerHTML =
+                        '<a class="story-card" href="' + esc(href) + '">' +
+                            thumbHtml +
+                            '<div class="story-card-body">' +
+                                '<div class="story-card-title">' + esc(entry.title || 'Untitled') + '</div>' +
+                                (metaParts.length ? '<div class="story-card-meta">' + esc(metaParts.join(' — ')) + '</div>' : '') +
+                                '<p class="story-card-summary">' + esc(entry.summary || '') + '</p>' +
+                            '</div>' +
+                        '</a>';
                     list.appendChild(li);
                 });
             } catch (err) {
