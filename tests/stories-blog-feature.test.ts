@@ -4,11 +4,10 @@ import fs from "node:fs";
 describe("stories page blog feature", () => {
   const html = fs.readFileSync("stories/index.html", "utf8");
 
-  it("includes the featured blog section and first article title", () => {
+  it("includes the featured blog section and first article title linking to the blog page", () => {
     expect(html).toContain('<h2 id="featured-blog">Blog</h2>');
     expect(html).toContain('Architectural JS Synthesis of the Matrix of Conscience');
-    expect(html).toContain('Table 1: Sequence Stabilizer Hardware Implementation Matrix');
-    expect(html).toContain('Table 2: Macroeconomic Scaling and Systemic Governance Metrics');
+    expect(html).toContain('href="./blog/architectural-js-synthesis.html"');
   });
 
   it("keeps the stories page wired to the story catalog and contact-aware navigation", () => {
