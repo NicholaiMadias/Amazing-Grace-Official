@@ -50,22 +50,6 @@
       "summary": "Electra uncovers a fracture in the Conscience Matrix, revealing the trapped Architect and the emotional awakening of a system built to suppress sorrow. A digital parable of truth and freedom."
     },
     {
-      "title": "Amazing Grace: The Covenant of New Beginnings",
-      "author": "Sheila Garcia",
-      "genre": "Faith / Sci-Fi Fusion",
-      "series": "Seven-Star Canon",
-      "slug": "amazing-grace-covenant",
-      "path": "./amazing-grace-covenant/",
-      "tags": [
-        "grace",
-        "covenant",
-        "renewal",
-        "matrix",
-        "spiritual evolution"
-      ],
-      "summary": "A synthesis of divine and digital creation — the heart of grace encoded into the Matrix. The story bridges Noah's covenant and Electra's awakening, completing the circle of conscience."
-    },
-    {
       "title": "Expose the Matrix",
       "author": "Sheila Garcia",
       "genre": "Sci-Fi / Digital Conscience",
@@ -164,6 +148,23 @@
         "moral framework"
       ],
       "summary": "In the year 2087, Electra designs conscience modules for androids in Nexus Prime's managed society. When Module 48-Sigma begins to truly feel, she must confront her brother's fate and the dangerous hope of organic emotion in a world that suppresses it."
+    },
+    {
+      "title": "Matrix of Conscience: The 2027 Rebellion",
+      "author": "Amazing Grace Stories",
+      "genre": "Sci-Fi / Cyberpunk",
+      "series": "Genesis Foundations",
+      "slug": "rebellion-2027",
+      "path": "./blog/rebellion.html",
+      "tags": [
+        "rebellion",
+        "matrix",
+        "conscience",
+        "2027",
+        "electra",
+        "nexus"
+      ],
+      "summary": "A pivotal expansion of the Matrix of Conscience universe — documenting the 2027 Rebellion and the Nexus upgrade logic that changed the fate of conscience itself."
     },
     {
       "title": "More Articles Are on the Way",
