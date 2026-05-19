@@ -1,301 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-  (function () {
-    const allowedHosts = new Set([
-      "amazinggracehl.org",
-      "www.amazinggracehl.org",
-      "nicholaimadias.github.io",
-    ]);
-    const isHosted =
-      window.location.protocol === "https:" && allowedHosts.has(window.location.hostname);
-    if (!isHosted) return;
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://www.googletagmanager.com/gtag/js?id=G-HKZ2G2VN78";
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      window.dataLayer.push(arguments);
-    };
-    window.gtag("js", new Date());
-    window.gtag("config", "G-HKZ2G2VN78");
-  })();
-</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Storybook Library — ministry testimonies, branching narratives, and fictional adventures from Amazing Grace Home Living.">
-    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Stories archive from Amazing Grace Home Living.">
+    <meta name="theme-color" content="#020617">
     <link rel="icon" type="image/png" href="../assets/logo.png">
-    <title>Storybook Library | Amazing Grace Home Living</title>
+    <link rel="stylesheet" href="../assets/css/unified-nav.css">
+    <title>Stories Archive | Amazing Grace Home Living</title>
 
     <style>
-        .nav-logo-link {
-            display: none !important;
+        :root {
+            --bg: #020617;
+            --surface: #0f172a;
+            --border: #1e293b;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --neon-blue: #0ea5e9;
         }
+
+        * { box-sizing: border-box; }
 
         body {
-            background: #000;
-            color: #ccc;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem;
-            line-height: 1.7;
-            padding: 2rem 1.5rem;
-            max-width: 720px;
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(2, 6, 23, 0.96);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-container {
+            max-width: 1120px;
             margin: 0 auto;
-        }
-
-        a { color: #4af; text-decoration: underline; }
-        a:hover, a:focus { color: #7cf; }
-        a:focus-visible { outline: 2px solid #4af; outline-offset: 2px; }
-
-        /* ── Top nav ── */
-        .topnav {
-            font-size: 0.85rem;
-            margin-bottom: 2.5rem;
+            padding: 1rem 1.25rem;
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.25rem 1rem;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
         }
-        .topnav a { white-space: nowrap; }
 
-        /* ── Header ── */
-        header h1 {
-            font-size: 1.6rem;
-            font-weight: bold;
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
             color: #fff;
-            margin-bottom: 0.25rem;
-            letter-spacing: 0.02em;
-        }
-        header p.sub {
-            color: #777;
-            font-size: 0.85rem;
-            margin-bottom: 2rem;
-        }
-        hr {
-            border: none;
-            border-top: 1px solid #333;
-            margin: 1.5rem 0;
+            text-decoration: none;
+            font-weight: 700;
         }
 
-        /* ── Story list ── */
-        #story-list {
-            list-style: none;
-            padding: 0;
+        .logo img {
+            height: 42px;
+            width: auto;
+            border-radius: 6px;
         }
-        #story-list li {
-            margin-bottom: 1.4rem;
-        }
-        .row {
+
+        .nav-links {
             display: flex;
-            align-items: baseline;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 0.8rem;
+            border-radius: 999px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.nav-active-page {
+            background: rgba(56, 189, 248, 0.14);
+            color: #fff;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            margin: 0 0 0.5rem;
+            color: #fff;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin: 0 0 2rem;
+            font-size: 1.1rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
             gap: 0.5rem;
-        }
-        .icon {
-            font-style: normal;
-            font-size: 1rem;
-            flex-shrink: 0;
-            width: 1.5rem;
-            text-align: center;
-        }
-        .story-link {
-            font-size: 1rem;
-            font-weight: bold;
-        }
-        .meta {
-            font-size: 0.8rem;
-            color: #666;
-            padding-left: 2rem;
-        }
-
-        /* ── Error ── */
-        .error {
-            color: #f66;
-            background: #200;
-            border: 1px solid #600;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
             padding: 0.75rem 1rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            white-space: pre-wrap;
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            transition: all 0.2s;
         }
-        .error:empty { display: none; }
 
-        /* ── Arcade banner ── */
-        .arcade-banner {
-            font-size: 0.85rem;
-            color: #888;
-            margin-bottom: 1.5rem;
-            padding: 0.6rem 0.85rem;
-            background: #050e1d;
-            border-left: 3px solid #4af;
-            border-radius: 0 4px 4px 0;
-            line-height: 1.5;
+        .back-link:hover {
+            background: rgba(15, 23, 42, 1);
+            border-color: var(--accent);
         }
-        .arcade-banner a { color: #4af; }
 
-        /* ── Section headings ── */
         .section-heading {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #4af;
-            margin: 2rem 0 0.75rem;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--accent);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
         }
 
-        /* ── Character list ── */
-        #character-list {
+        .story-list {
             list-style: none;
             padding: 0;
-        }
-        #character-list li {
-            margin-bottom: 1.4rem;
+            margin: 0;
         }
 
-        /* ── Footer ── */
-        footer {
-            margin-top: 3rem;
-            border-top: 1px solid #333;
-            padding-top: 1rem;
-            font-size: 0.8rem;
-            color: #555;
+        .story-list li {
+            margin: 0.75rem 0;
+        }
+
+        .story-link {
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+
+        .story-link:hover {
+            color: #7dd3fc;
+        }
+
+        .footer {
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            text-align: center;
+            padding: 1.5rem 1rem 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../" class="logo" aria-label="Amazing Grace Home Living — Home">
+                <img src="../assets/logo.png" alt="Amazing Grace Home Living">
+            </a>
 
-<nav class="topnav" aria-label="Site navigation">
-    <a href="../">Home</a>
-    <a href="./">Library</a>
-    <a href="../ministry/">Ministry</a>
-    <a href="../arcade/">Arcade</a>
-</nav>
+            <nav id="main-nav" class="nav-links" aria-label="Main navigation">
+                <a href="../#properties">Listings</a>
+                <a href="../library/">Library</a>
+                <a href="../arcade/">Arcade</a>
+                <a href="../ministry/">Ministry</a>
+                <a href="../contact/">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-<header>
-    <h1>📚 Storybook Library</h1>
-    <p class="sub">Stories from the Amazing Grace universe.</p>
-</header>
+    <main>
+        <a href="../library/" class="back-link">
+            <span>←</span>
+            <span>Back to Library</span>
+        </a>
 
-<p class="arcade-banner">
-    🎮 <strong>Nexus Arcade</strong> — experience these stories as interactive games and narrative missions at <a href="../arcade/">/arcade</a>
-</p>
+        <h1>📚 Stories Archive</h1>
+        <p class="subtitle">Complete archive of all stories and articles from Amazing Grace Home Living.</p>
 
-<hr>
+        <h2 class="section-heading">All Stories</h2>
+        <ul id="story-list" class="story-list" aria-label="Story list">
+            <!-- Stories will be loaded dynamically -->
+        </ul>
+    </main>
 
-<h2 class="section-heading" id="stories">📖 Story Experiences</h2>
-<ul id="story-list" aria-label="Story list"></ul>
+    <footer class="footer">
+        <p>&copy; 2026 Amazing Grace Home Living &mdash; Tampa and Largo, Florida</p>
+    </footer>
 
-<hr>
-
-<h2 id="characters" class="section-heading">🏃‍♀️ Characters</h2>
-<ul id="character-list" aria-label="Character dossiers"></ul>
-
-<div id="error" class="error" role="status" aria-live="polite"></div>
-
-<footer>
-    <p>&copy; 2026 Amazing Grace Home Living &mdash; <a href="../">amazinggracehl.org</a></p>
-</footer>
-
-<script>
-    /* Pick a simple glyph icon based on entry metadata */
-    function pickIcon(entry) {
-        var tags = Array.isArray(entry.tags) ? entry.tags.map(function(t) { return String(t).toLowerCase(); }) : [];
-        var genre = String(entry.genre || '').toLowerCase();
-        if (tags.indexOf('faith') !== -1 || genre.indexOf('faith') !== -1) return '✝';
-        if (tags.indexOf('matrix') !== -1 || tags.indexOf('sci-fi') !== -1 || genre.indexOf('sci') !== -1) return '⌬';
-        if (tags.indexOf('covenant') !== -1) return '✧';
-        return '📖';
-    }
-
-    /* Build the muted metadata string shown below each link */
-    function formatMeta(entry) {
-        var parts = [];
-        if (entry.author) parts.push(entry.author);
-        if (entry.series) parts.push(entry.series);
-        if (entry.genre)  parts.push(entry.genre);
-        if (Array.isArray(entry.tags) && entry.tags.length) {
-            parts.push('tags: ' + entry.tags.join(', '));
+    <script>
+        function esc(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
         }
-        return parts.join(' — ');
-    }
 
-    /* Escape a string for safe insertion into HTML */
-    function esc(str) {
-        return String(str || '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
-    }
+        async function loadStories() {
+            var list = document.getElementById('story-list');
+            var errorDiv = document.createElement('p');
+            errorDiv.style.color = '#fecaca';
 
-    async function loadStories() {
-        var list      = document.getElementById('story-list');
-        var charList  = document.getElementById('character-list');
-        var error     = document.getElementById('error');
+            try {
+                var res = await fetch('./library.json');
+                if (!res.ok) throw new Error('HTTP ' + res.status + ' loading library.json');
 
-        try {
-            var res = await fetch('./library.json');
-            if (!res.ok) throw new Error('HTTP ' + res.status + ' loading ./library.json');
+                var data = await res.json();
+                var entries = Array.isArray(data.entries) ? data.entries : [];
 
-            var data    = await res.json();
-            var entries = Array.isArray(data.entries) ? data.entries : [];
-            var chars   = Array.isArray(data.characters) ? data.characters : [];
+                if (!entries.length) {
+                    errorDiv.textContent = 'No stories found in the library.';
+                    list.appendChild(errorDiv);
+                    return;
+                }
 
-            if (!entries.length) {
-                error.textContent = 'No entries found in stories/library.json (expected { entries: [...] }).';
-                return;
-            }
-
-            entries.forEach(function(entry) {
-                /* Prefer explicit path; fall back to slug-based folder */
-                var href = entry.path || (entry.slug ? './' + entry.slug + '/' : '#');
-
-                var li = document.createElement('li');
-                li.innerHTML =
-                    '<div class="row">' +
-                        '<span class="icon" aria-hidden="true">' + esc(pickIcon(entry)) + '</span>' +
-                        '<a class="story-link" href="' + esc(href) + '">' + esc(entry.title || 'Untitled') + '</a>' +
-                    '</div>' +
-                    '<div class="meta">' + esc(formatMeta(entry)) + '</div>';
-
-                list.appendChild(li);
-            });
-
-            /* Render characters section */
-            if (chars.length) {
-                chars.forEach(function(char) {
-                    var href = char.path || (char.slug ? './characters/' + char.slug + '.html' : '#');
-                    var meta = [char.role, char.tags ? 'tags: ' + char.tags.join(', ') : ''].filter(Boolean).join(' — ');
-
+                entries.forEach(function (entry) {
+                    var href = entry.path || (entry.slug ? './' + entry.slug + '/' : '#');
                     var li = document.createElement('li');
-                    li.innerHTML =
-                        '<div class="row">' +
-                            '<span class="icon" aria-hidden="true">🏃</span>' +
-                            '<a class="story-link" href="' + esc(href) + '">' + esc(char.title || 'Untitled') + '</a>' +
-                        '</div>' +
-                        '<div class="meta">' + esc(meta) + '</div>';
-
-                    charList.appendChild(li);
+                    var link = document.createElement('a');
+                    link.className = 'story-link';
+                    link.href = href;
+                    link.textContent = entry.title || 'Untitled';
+                    li.appendChild(link);
+                    list.appendChild(li);
                 });
-            } else {
-                /* Hide the characters section if empty */
-                var h = document.getElementById('characters');
-                if (h) h.style.display = 'none';
-                if (charList) charList.style.display = 'none';
+            } catch (err) {
+                console.error('Failed to load stories', err);
+                errorDiv.textContent = 'Failed to load stories: ' + String(err);
+                list.appendChild(errorDiv);
             }
-
-        } catch (err) {
-            console.error('Failed to load ./library.json', err);
-            error.textContent = 'Failed to load stories. ' + String(err);
         }
-    }
 
-    loadStories();
-</script>
-<div id="constellation-nav"></div>
-<script type="module" src="../constellation-nav.js"></script>
+        loadStories();
+    </script>
 </body>
 </html>
