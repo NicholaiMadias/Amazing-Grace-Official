@@ -10,7 +10,9 @@
     <link rel="icon" type="image/png" href="../../assets/logo.png">
     <script src="../../assets/vendor/hosted-only.js"></script>
     <script>
-        window.AmazingGraceHostedOnly?.loadStylesheet("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap");
+        window.addEventListener('DOMContentLoaded', () => {
+            window.AmazingGraceHostedOnly?.loadStylesheet("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap");
+        }, { once: true });
     </script>
     <style>
         :root {
