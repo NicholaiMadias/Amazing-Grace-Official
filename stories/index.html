@@ -334,6 +334,24 @@
             padding: 1.5rem 1rem 2rem;
         }
 
+        .footer-nav {
+            border-top: none;
+            padding-top: 0;
+            color: var(--muted);
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+
+        .footer-nav p { margin: 0; }
+
+        .footer-nav a { color: var(--accent); }
+
+        .blog-read-link {
+            display: inline-flex;
+            margin-top: 0.5rem;
+            color: var(--accent);
+        }
+
         @media (max-width: 768px) {
             .hero {
                 grid-template-columns: 1fr;
@@ -425,7 +443,7 @@
                         <span>Featured systems essay</span>
                     </div>
                     <p>An architectural deep-dive into unifying the Sequence Stabilizer, Binary Rain, and a point-based economy in high-fidelity simulation environments.</p>
-                    <a href="./blog/architectural-js-synthesis.html" style="display:inline-flex;margin-top:0.5rem;color:var(--accent);">Read full article →</a>
+                    <a href="./blog/architectural-js-synthesis.html" class="blog-read-link">Read full article →</a>
                 </article>
             </section>
 
@@ -448,8 +466,8 @@
         <p>&copy; 2026 Amazing Grace Home Living &mdash; <a href="../">amazinggracehl.org</a></p>
     </footer>
 
-    <nav class="site-footer" style="border-top:none;padding-top:0;" aria-label="Library footer navigation">
-        <p style="margin:0;"><a href="#story-experiences" style="color:var(--accent);">📖 Browse stories ↑</a></p>
+    <nav class="footer-nav" aria-label="Library footer navigation">
+        <p><a href="#story-experiences">📖 Browse stories ↑</a></p>
     </nav>
 
     <script>
