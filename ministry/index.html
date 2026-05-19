@@ -34,23 +34,19 @@
     <link rel="icon" type="image/png" href="../assets/logo.png">
     <title>Ministry | Amazing Grace Home Living</title>
 
-    <script src="../assets/vendor/hosted-only.js"></script>
-    <link rel="stylesheet" href="../assets/css/unified-nav.css">
-    <script>
-        window.AmazingGraceHostedOnly?.loadStylesheet("https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap");
-    </script>
+    <link rel="stylesheet" href="../assets/css/theme.css">
     <style>
         :root {
             --deep-purple: #4a235a;
-            --gold:        #ffd700;
-            --gold-dim:    rgba(255,215,0,0.75);
-            --bg:          #0d0115;
-            --surface:     rgba(74,35,90,0.55);
-            --border:      rgba(255,215,0,0.22);
-            --text:        #f0e6ff;
-            --text-muted:  #b89dc8;
-            --accent:      #c084fc;
-            --radius:      14px;
+            --gold: #ffd700;
+            --gold-dim: rgba(255,215,0,0.75);
+            --bg: #0d0115;
+            --surface: rgba(74,35,90,0.55);
+            --border: rgba(255,215,0,0.22);
+            --text: #f0e6ff;
+            --text-muted: #b89dc8;
+            --accent: #c084fc;
+            --radius: 14px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,16 +56,13 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* ── Ministry Starfield Background (CSS-only) ── */
+        /* Ministry Starfield Background (CSS-only) */
         .ministry-stars {
             position: fixed;
             inset: 0;
